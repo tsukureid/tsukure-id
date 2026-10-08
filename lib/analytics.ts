@@ -1,6 +1,7 @@
 export type AnalyticsEvent =
   | 'page_view' | 'hero_cta_click' | 'service_view' | 'portfolio_view' | 'pricing_view'
   | 'order_start' | 'order_submit' | 'payment_started' | 'payment_completed'
+  | 'portfolio_anchor_click' | 'portfolio_item_view' | 'cv_cta_click'
   | 'whatsapp_click' | 'instagram_click' | 'tiktok_click' | 'faq_open';
 
 /**
