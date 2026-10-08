@@ -5,6 +5,12 @@
 @layer base {
   html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
   body { @apply bg-white text-brand-ink font-sans antialiased; }
+  body:has([data-maintenance-root="true"]) header,
+  body:has([data-maintenance-root="true"]) footer,
+  body:has([data-maintenance-root="true"]) a[aria-label="Chat WhatsApp"],
+  body:has([data-maintenance-root="true"]) .sr-only {
+    display: none !important;
+  }
   h1, h2, h3 { @apply font-display text-brand-navy tracking-tight text-balance; }
   :focus-visible { @apply outline-2 outline-offset-2 outline-brand-navy; outline-style: solid; }
   @media (prefers-reduced-motion: reduce) {

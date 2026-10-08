@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#f7f7f2] text-brand-navy">
+    <main data-maintenance-root="true" className="relative min-h-screen overflow-hidden bg-[#f7f7f2] text-brand-navy">
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.18),transparent_35%),radial-gradient(circle_at_bottom,_rgba(34,197,94,0.12),transparent_30%)] blur-2xl" />
         <div className="absolute inset-x-10 top-20 h-56 rounded-full bg-emerald-200/30 blur-3xl" />
