@@ -1,5 +1,14 @@
 import type { Metadata } from 'next';
+import { getPortfolio } from '@/lib/data';
 import { siteUrl } from '@/lib/utils';
+import { jsonLd } from '@/lib/seo';
+import { CV_PRICE } from '@/lib/cv-config';
+import { StickyCta } from '@/components/cv/sticky-cta';
+import { UtmCapture } from '@/components/utm-capture';
+import {
+  CvBeforeAfter, CvBenefits, CvFaq, CvFinalCta, CvFooter, CvHero, CvPortfolioSection,
+  CvPricing, CvProblem, CvProcess, CvPromise, CvValue,
+} from '@/components/cv/sections';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,13 +26,32 @@ export const metadata: Metadata = {
 };
 
 export default async function CvLanding() {
+  const portfolio = await getPortfolio();
+  const ld = [
+    { '@context': 'https://schema.org', '@type': 'Organization', name: 'TSUKURE.ID', url: siteUrl('/') },
+    {
+      '@context': 'https://schema.org', '@type': 'Service', name: 'Jasa Pembuatan CV Profesional', serviceType: 'Pembuatan CV', description: DESC, areaServed: 'ID',
+      provider: { '@type': 'Organization', name: 'TSUKURE.ID', url: siteUrl('/') },
+      offers: { '@type': 'Offer', price: CV_PRICE.current, priceCurrency: 'IDR', url: URL },
+    },
+  ];
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#f7f7f2] px-6 py-16 text-brand-navy">
-      <div className="text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-brand-navy/65">Status</p>
-        <h1 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">https://tsukure.id</h1>
-        <p className="mt-4 text-base font-medium text-brand-navy/75 sm:text-lg">MASIH DALAM TAHAP PEMBANGUNAN</p>
-      </div>
-    </main>
+    <>
+      <CvHero />
+      <CvProblem />
+      <CvPromise />
+      <CvValue />
+      <CvPortfolioSection items={portfolio} />
+      <CvBeforeAfter />
+      <CvBenefits />
+      <CvProcess />
+      <CvPricing />
+      <CvFaq />
+      <CvFinalCta />
+      <CvFooter />
+      <StickyCta />
+      <UtmCapture />
+      {ld.map((d, i) => <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(d) }} />)}
+    </>
   );
 }
