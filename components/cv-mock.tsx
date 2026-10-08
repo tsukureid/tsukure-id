@@ -1,7 +1,8 @@
 import { cn } from '@/lib/utils';
 
 /** Ilustrasi dokumen CV (bukan hasil klien). Dipakai untuk menjelaskan prinsip tata letak. */
-export function CvMock({ variant = 'clean', className }: { variant?: 'clean' | 'messy'; className?: string }) {
+export function CvMock({ variant = 'clean', className, accent = 'gold' }: { variant?: 'clean' | 'messy'; className?: string; accent?: 'gold' | 'yellow' }) {
+  const accentBg = accent === 'yellow' ? 'bg-tsukure-yellow' : 'bg-brand-gold';
   if (variant === 'messy') {
     return (
       <div aria-hidden className={cn('aspect-[3/4] w-full overflow-hidden rounded-lg border border-brand-navy/15 bg-white p-4 text-[7px] leading-tight', className)}>
@@ -29,7 +30,7 @@ export function CvMock({ variant = 'clean', className }: { variant?: 'clean' | '
         </div>
         <div className="space-y-3 p-[7%]">
           <div className="h-3 w-3/5 rounded bg-brand-navy" />
-          <div className="h-1.5 w-2/5 rounded bg-brand-gold" />
+          <div className={cn('h-1.5 w-2/5 rounded', accentBg)} />
           {[0, 1, 2, 3, 4].map((s) => (
             <div key={s} className="pt-1.5">
               <div className="mb-1.5 h-2 w-2/5 rounded bg-brand-blue-dark" />

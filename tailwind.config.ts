@@ -13,6 +13,8 @@ const config: Config = {
           gold: '#D4A72C',
           ink: '#111111',
         },
+        // Khusus landing /cv. Tidak mengubah token yang dipakai halaman lain.
+        tsukure: { yellow: '#FCD702' },
       },
       fontFamily: {
         display: ['"Bricolage Grotesque Variable"', 'system-ui', 'sans-serif'],
