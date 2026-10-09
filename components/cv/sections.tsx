@@ -4,60 +4,97 @@ import { FAQAccordion } from '../faq-accordion';
 import { CvPortfolio } from './portfolio';
 import { PortfolioAnchorCta, WaCta } from './cta';
 import { ViewTracker } from './view-tracker';
-import { CV_PRICE } from '@/lib/cv-config';
+import { CV_PACKAGES } from '@/lib/cv-config';
 /** Format "Rp29.000" persis seperti brief (tanpa spasi). */
 const formatRupiah = (n: number) => `Rp${n.toLocaleString('id-ID')}`;
 import type { PortfolioView } from '@/lib/data';
 
+/** Centang tipis "√" seperti di desain paket. */
 const Check = ({ className = 'text-brand-navy' }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" className={`mt-0.5 h-5 w-5 shrink-0 ${className}`} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 12l5 5 9-10" /></svg>
+  <svg viewBox="0 0 24 24" className={`mt-0.5 h-5 w-5 shrink-0 ${className}`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M4 12.5l5 5L20 6" /></svg>
+);
+
+const TsukureLogo = ({ className = '' }: { className?: string }) => (
+  <div className={`flex items-center ${className}`}>
+    <img
+      src="/TSUKURE_LOGO_HORIZONTAL.png"
+      alt="Tsukure.id logo"
+      className="h-8 w-auto object-contain sm:h-10 lg:h-12"
+    />
+  </div>
 );
 
 export function CvHero() {
-  const chips = ['Professional', 'Clean', 'Ready to Apply'];
   return (
     <section className="relative overflow-hidden bg-white" aria-labelledby="hero-h">
-      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-light" aria-hidden />
-      <div className="container-x relative py-10 sm:py-20">
-        <p className="font-display text-lg font-extrabold tracking-tight text-brand-navy">TSUKURE<span className="text-brand-blue-dark">.ID</span></p>
-        <div className="mt-10 grid items-center gap-12 lg:mt-16 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
-            <p className="inline-block rounded-full bg-tsukure-yellow px-4 py-1.5 text-sm font-bold text-brand-ink">Jasa Pembuatan CV Profesional</p>
-            <h1 id="hero-h" className="mt-5 text-[2.35rem] font-extrabold leading-[1.05] min-[400px]:text-[2.7rem] sm:text-6xl">CV rapi.<br />Lamaran lebih siap.</h1>
-            <p className="lead mt-5 max-w-xl">TSUKURE.ID bantu kamu membuat CV yang lebih profesional, rapi, dan siap digunakan untuk melamar kerja.</p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <WaCta place="hero" />
-              <PortfolioAnchorCta />
-            </div>
-            <p className="mt-5 text-sm font-medium text-brand-navy/70">Professional • Clean • Ready to Apply</p>
-          </div>
-          <div className="hidden lg:block" aria-hidden>
-            <div className="relative ml-auto w-full max-w-sm rounded-xl2 bg-brand-navy p-8 text-white shadow-soft">
-              <span className="absolute -left-4 -top-4 h-12 w-12 rounded-full bg-tsukure-yellow" />
-              <ul className="space-y-6">
-                {chips.map((c, i) => (
-                  <li key={c} className="flex items-center gap-4 border-b border-white/15 pb-6 last:border-0 last:pb-0">
-                    <span className="font-display text-3xl font-extrabold text-tsukure-yellow">0{i + 1}</span>
-                    <span className="text-xl font-bold">{c}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+      {/* Lingkaran biru muda: kepotong di pojok kanan atas (mobile & desktop) */}
+      <div
+        className="pointer-events-none absolute -right-[90px] -top-[90px] h-[270px] w-[270px] rounded-full bg-[#dceeff] lg:-right-[150px] lg:-top-[165px] lg:h-[380px] lg:w-[380px]"
+        aria-hidden
+      />
+
+      <div className="container-x relative mx-auto grid w-full max-w-[1240px] pt-6 sm:pt-8 lg:grid-cols-[1.12fr_0.88fr] lg:grid-rows-[1fr_auto_auto_auto_1fr] lg:gap-x-2 lg:pt-10">
+        {/* 1. Logo + headline + subjudul */}
+        <div className="relative z-10 text-left lg:col-start-1 lg:row-start-2">
+          <TsukureLogo className="mb-5 lg:mb-10" />
+
+          <h1
+            id="hero-h"
+            className="whitespace-nowrap text-[2rem] font-extrabold leading-[1.3] tracking-[-0.045em] text-brand-navy min-[380px]:text-[2.2rem] min-[430px]:text-[2.4rem] sm:text-[3rem] lg:text-[2.6rem] lg:leading-[1.32] xl:text-[3.2rem]"
+          >
+            Masa Depan{' '}
+            <br className="lg:hidden" />
+            Kariermu{' '}
+            <br className="hidden lg:block" />
+            Dimulai dari{' '}
+            <br className="lg:hidden" />
+            CV yang Tepat.
+          </h1>
+
+          <p className="mt-5 text-[1.1rem] leading-[1.5] text-brand-ink/80 min-[430px]:text-[1.2rem] sm:text-[1.35rem] lg:mt-8 lg:text-[1.35rem] lg:leading-[1.55] xl:text-[1.7rem]">
+            Buat kesan pertama yang membuat HRD
+            <br />
+            ingin mengenalmu lebih jauh.
+          </p>
         </div>
+
+        {/* 2. Foto: di tengah (mobile) / kolom kanan, nempel bawah (desktop) */}
+        <div className="relative mt-6 flex justify-center lg:col-start-2 lg:row-span-5 lg:row-start-1 lg:mt-0 lg:items-end lg:justify-end">
+          <img
+            src="/BRAND_AMBASSADOR.png"
+            alt="Profesional wanita memegang CV"
+            className="relative z-10 h-auto w-[86%] max-w-[430px] object-contain object-bottom lg:h-[600px] lg:w-auto lg:max-w-none xl:h-[680px]"
+          />
+        </div>
+
+        {/* 3. Tombol */}
+        <div className="relative z-10 mt-1 flex flex-col gap-3 lg:col-start-1 lg:row-start-3 lg:mt-9 lg:flex-row">
+          <WaCta place="hero" className="w-full lg:w-auto lg:min-w-[210px]" />
+          <PortfolioAnchorCta className="w-full lg:w-auto lg:min-w-[210px]" />
+        </div>
+
+        {/* 4. Catatan */}
+        <p className="relative z-10 mt-7 px-1.5 pb-8 text-[0.95rem] min-[430px]:text-[1.05rem] sm:text-[1.15rem] font-medium leading-[1.6] text-brand-navy/70 lg:col-start-1 lg:row-start-4 lg:mt-10 lg:px-1 lg:pb-0 lg:text-[0.95rem] xl:text-[1.15rem]">
+          *Tenang aja, CV-mu bisa terus disesuaikan GRATIS
+          <br />
+          sampai kamu dapat kerja.
+        </p>
       </div>
     </section>
   );
 }
 
 export function CvProblem() {
-  const pains = ['CV gue kelihatan biasa banget.', 'Nulis pengalaman kerja gimana?', 'Fresh graduate harus isi CV apa?', 'CV lama gue terlalu berantakan.', 'Takut CV nggak dilirik recruiter.'];
+  const pains = ['CV-ku kok kelihatan biasa banget, ya?', 'Pengalaman kerja belum ada. CV-ku diisi apa?', 'Fresh graduate, emang CV harus diisi apa?', 'CV-ku yang lama berantakan banget.', 'Takut CV-ku nggak dilirik recruiter.'];
   return (
-    <section className="section bg-brand-light" aria-labelledby="problem-h">
-      <div className="container-x grid gap-10 lg:grid-cols-2 lg:items-center">
-        <h2 id="problem-h" className="h2 whitespace-pre-line">{'Cari kerja aja udah bikin pusing.\nJangan ditambah CV.'}</h2>
+    <section className="section bg-[#eef6ff]" aria-labelledby="problem-h">
+      <div className="container-x grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div>
+          <h2 id="problem-h" className="h2 max-w-lg leading-[1.05]">Cari Lowongan Aja Udah Bikin Pusing. Jangan Ditambah Masalah Bikin CV.</h2>
+          <p className="mt-4 max-w-lg text-base leading-relaxed text-brand-ink/75 sm:text-lg">Mulai dari bingung harus isi apa, bikin desainnya gimana, sampai takut CV-mu nggak dilirik HRD.</p>
+        </div>
         <ul className="grid gap-3 sm:grid-cols-2">
-          {pains.map((p) => <li key={p} className="rounded-2xl bg-white px-5 py-4 text-[15px] font-medium text-brand-navy shadow-soft">“{p}”</li>)}
+          {pains.map((p) => <li key={p} className="rounded-2xl bg-white px-5 py-4 text-[15px] font-medium text-brand-navy shadow-soft ring-1 ring-brand-navy/5">“{p}”</li>)}
         </ul>
       </div>
     </section>
@@ -67,9 +104,9 @@ export function CvProblem() {
 export function CvPromise() {
   return (
     <section className="section bg-brand-navy" aria-labelledby="promise-h">
-      <div className="container-x max-w-3xl">
+      <div className="container-x max-w-4xl">
         <span className="block h-1.5 w-12 rounded bg-tsukure-yellow" aria-hidden />
-        <h2 id="promise-h" className="mt-6 font-display text-3xl font-bold leading-tight text-white sm:text-5xl">Aku bakal dukung kamu selama proses cari kerja.</h2>
+        <h2 id="promise-h" className="mt-6 font-display text-3xl font-bold leading-tight text-white sm:text-5xl max-w-3xl">Aku bakal dukung kamu selama proses cari kerja.</h2>
         <p className="mt-5 text-lg text-white/80">Mulai dari CV. Kami bantu kamu lebih siap melamar.</p>
       </div>
     </section>
@@ -78,19 +115,25 @@ export function CvPromise() {
 
 export function CvValue() {
   const items = [
-    ['Struktur profesional', 'Informasi diurutkan supaya mudah dipahami recruiter.'],
-    ['Tata letak bersih', 'Rapi, konsisten, dan nyaman dibaca.'],
-    ['Informasi jelas', 'Poin penting kamu tidak tenggelam.'],
-    ['Cocok untuk fresh graduate', 'Pendidikan, organisasi, dan skill tetap bisa tampil kuat.'],
-    ['File final siap dipakai', 'Softfile dan file siap print.'],
+    ['Struktur CV jelas', 'Anatomi CV disusun dengan struktur yang profesional dan mudah dipahami.'],
+    ['Fresh graduate tetap punya nilai', 'Pendidikan, organisasi, magang, dan skill tetap bisa ditonjolkan.'],
+    ['Tampilan rapi & profesional', 'Layout bersih, konsisten, dan nyaman dibaca recruiter.'],
+    ['Informasi penting lebih menonjol', 'Poin penting tentang dirimu nggak tenggelam di antara isi CV.'],
+    ['Tampil lebih meyakinkan', 'CV dibuat untuk menampilkan potensi terbaikmu sejak pertama kali dilihat.'],
   ];
   return (
-    <section className="section" aria-labelledby="value-h">
-      <div className="container-x">
-        <h2 id="value-h" className="h2 max-w-3xl">CV yang Dibuat untuk Bikin Kamu Lebih Siap Melamar.</h2>
-        <ul className="mt-10 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+    <section className="section bg-[#f3f3f3]" aria-labelledby="value-h">
+      <div className="container-x max-w-6xl">
+        <h2 id="value-h" className="max-w-4xl font-display text-3xl font-extrabold leading-[1.05] tracking-[-0.04em] text-brand-navy sm:text-5xl">Nggak Perlu Pusing Bikin CV. Kami Bantu Bikin Kamu Lebih Siap Melamar.</h2>
+        <p className="mt-5 max-w-4xl text-base leading-relaxed text-brand-ink/75 sm:text-lg">Dari isi sampai tampilannya, kami bantu bikin CV yang lebih rapi, profesional, dan mampu menampilkan potensi terbaikmu.</p>
+        <ul className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map(([t, d]) => (
-            <li key={t} className="border-l-4 border-tsukure-yellow pl-5"><h3 className="text-lg font-bold">{t}</h3><p className="mt-1 text-[15px] text-brand-ink/70">{d}</p></li>
+            <li key={t} className="flex items-start border-l-4 border-tsukure-yellow py-1 pl-5">
+              <div>
+                <h3 className="text-lg font-bold leading-snug text-brand-navy">{t}</h3>
+                <p className="mt-2 text-base leading-relaxed text-brand-ink/70">{d}</p>
+              </div>
+            </li>
           ))}
         </ul>
       </div>
@@ -119,15 +162,31 @@ export function CvPortfolioSection({ items }: { items: PortfolioView[] }) {
 
 export function CvBeforeAfter() {
   return (
-    <section className="section" aria-labelledby="ba-h">
-      <div className="container-x grid items-center gap-10 lg:grid-cols-2">
+    <section className="section pb-0" aria-labelledby="ba-h">
+      <div className="container-x grid items-end gap-10 lg:grid-cols-2">
+        <div className="flex items-end justify-center lg:justify-start">
+          <img
+            src="/BRAND_AMBASSADOR2.png"
+            alt="Profesional wanita memegang CV"
+            className="mx-auto block h-auto w-[86%] max-w-[430px] object-contain object-bottom lg:mx-0 lg:h-[600px] lg:w-[600px] lg:max-w-none xl:h-[680px] xl:w-[680px]"
+          />
+        </div>
         <div>
           <h2 id="ba-h" className="h2">Bedanya Kelihatan.</h2>
           <p className="lead mt-4">Isinya sama, hasilnya beda. Geser untuk melihat struktur, jarak, tipografi, dan keterbacaan sebelum dan sesudah dirapikan.</p>
-        </div>
-        <div>
-          <BeforeAfterSlider before={<CvMock variant="messy" className="rounded-none border-0" />} after={<CvMock variant="clean" accent="yellow" className="rounded-none border-0 shadow-none" />} />
-          <p className="mt-3 text-center text-xs text-brand-ink/55">Ilustrasi prinsip tata letak, bukan hasil klien.</p>
+          <div className="mt-6">
+            <BeforeAfterSlider
+              before={<CvMock variant="messy" className="rounded-none border-0" />}
+              after={
+                <img
+                  src="/perbandingan%20sebelum%20dan%20sesudah.jpg"
+                  alt="Perbandingan CV sebelum dan sesudah dirapikan"
+                  className="aspect-[3/4] w-full object-contain"
+                />
+              }
+            />
+            <p className="mt-3 text-center text-xs text-brand-ink/55">Ilustrasi prinsip tata letak, bukan hasil klien.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -137,13 +196,13 @@ export function CvBeforeAfter() {
 export function CvBenefits() {
   const support = ['Dibantu menyiapkan CV', 'Struktur lebih rapi', 'Tampilan profesional', 'Cocok untuk fresh graduate', 'Siap digunakan untuk melamar'];
   return (
-    <section className="section bg-brand-light" aria-labelledby="benefit-h">
+    <section className="section bg-[#f6f8fb]" aria-labelledby="benefit-h">
       <div className="container-x">
         <h2 id="benefit-h" className="h2">Bukan Cuma Dibikinin CV.</h2>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
-          <article className="rounded-xl2 bg-white p-7 shadow-soft">
-            <p className="w-fit rounded-full bg-brand-light px-3 py-1 text-xs font-bold text-brand-navy">Sudah termasuk</p>
-            <h3 className="mt-4 text-2xl font-bold">Include Edit Pas Foto Professional</h3>
+          <article className="rounded-xl2 bg-white p-7 shadow-soft ring-1 ring-brand-navy/5">
+            <p className="w-fit rounded-full bg-[#eef6ff] px-3 py-1 text-xs font-bold text-brand-navy">Sudah termasuk</p>
+            <h3 className="mt-4 text-2xl font-bold text-brand-navy">Include Edit Pas Foto Professional</h3>
             <p className="mt-3 text-brand-ink/75">Pas foto kamu dibantu dirapikan agar lebih siap digunakan di CV.</p>
           </article>
           <article className="rounded-xl2 bg-brand-navy p-7 text-white shadow-soft">
@@ -154,7 +213,7 @@ export function CvBenefits() {
           </article>
         </div>
         <ul className="mt-8 flex flex-wrap gap-2">
-          {support.map((s) => <li key={s} className="rounded-full bg-white px-4 py-2 text-sm font-medium text-brand-navy">{s}</li>)}
+          {support.map((s) => <li key={s} className="rounded-full bg-white px-4 py-2 text-sm font-medium text-brand-navy ring-1 ring-brand-navy/5">{s}</li>)}
         </ul>
       </div>
     </section>
@@ -186,18 +245,131 @@ export function CvProcess() {
 }
 
 export function CvPricing() {
-  const gets = ['CV profesional', 'Bantuan penyusunan', 'Edit pas foto professional', 'Proses via WhatsApp', 'Invoice resmi', 'Revisi sampai CV disetujui', 'Softfile final', 'File siap print', 'Garansi revisi alamat kerja selamanya'];
   return (
-    <ViewTracker event="pricing_view" id="harga" className="section bg-brand-light" hideSticky>
-      <div className="container-x max-w-3xl">
-        <h2 className="h2 text-center">Harganya Jelas.</h2>
-        <div className="mt-10 rounded-xl2 bg-white p-7 shadow-soft sm:p-10">
-          <p className="w-fit rounded-full bg-tsukure-yellow px-3 py-1 text-xs font-bold text-brand-ink">Harga perkenalan</p>
-          <p className="mt-5 text-lg text-brand-ink/50 line-through decoration-2"><span className="sr-only">Harga normal </span>{formatRupiah(CV_PRICE.original)}</p>
-          <p className="font-display text-6xl font-extrabold leading-none text-brand-navy sm:text-7xl"><span className="sr-only">Harga sekarang </span>{formatRupiah(CV_PRICE.current)}</p>
-          <h3 className="mt-8 text-lg font-bold">Yang kamu dapat</h3>
-          <ul className="mt-4 grid gap-3 sm:grid-cols-2">{gets.map((g) => <li key={g} className="flex gap-2.5 text-[15px]"><Check />{g}</li>)}</ul>
-          <WaCta place="pricing" className="mt-8 w-full sm:w-auto" />
+    <ViewTracker
+      event="pricing_view"
+      id="harga"
+      className="relative overflow-hidden bg-[#dceeff] pb-10 pt-10 sm:pt-12 lg:pt-14 xl:pb-0"
+      hideSticky
+    >
+      {/* Lingkaran putih kepotong di pojok kiri atas */}
+      <div
+        className="pointer-events-none absolute -left-[210px] -top-[215px] h-[400px] w-[400px] rounded-full bg-white"
+        aria-hidden
+      />
+
+      <div className="container-x relative mx-auto max-w-[1500px]">
+        <h2 className="text-center font-display text-[1.9rem] font-extrabold uppercase leading-[1.1] tracking-[-0.03em] text-brand-navy sm:text-[2.5rem] lg:text-[2.8rem] xl:whitespace-nowrap xl:text-[3.2rem]">
+          Pilih Paket Sesuai Kebutuhanmu
+        </h2>
+
+        <div className="mt-8 grid items-stretch gap-3 lg:grid-cols-3 xl:mt-10 xl:gap-2">
+          {CV_PACKAGES.map((plan) => {
+            const isPhoto = plan.id === 'photo';
+            const isCvOnly = plan.id === 'cv-only';
+            const isBundle = plan.id === 'bundle';
+
+            const tone = isBundle
+              ? {
+                  card: 'bg-[#0d2d4f] text-white',
+                  strike: 'text-white/65',
+                  note: 'text-white/70',
+                  btn: '!border-tsukure-yellow !bg-tsukure-yellow !text-brand-navy',
+                }
+              : isCvOnly
+                ? {
+                    card: 'bg-tsukure-yellow text-brand-navy',
+                    strike: 'text-brand-navy/55',
+                    note: 'text-brand-navy/70',
+                    btn: '!border-brand-navy !bg-transparent !text-brand-navy',
+                  }
+                : {
+                    card: 'bg-white text-[#111111]',
+                    strike: 'text-[#111111]/55',
+                    note: 'text-[#111111]/60',
+                    btn: '!border-[#111111] !bg-white !text-[#111111]',
+                  };
+
+            const [line1, line2] = isPhoto
+              ? ['EDIT', 'PAS FOTO']
+              : isCvOnly
+                ? ['PAKET', 'CV ONLY']
+                : ['PAKET', 'BUNDLE'];
+
+            return (
+              <article
+                key={plan.id}
+                className={`relative z-10 mx-auto flex min-h-[470px] w-full max-w-[300px] flex-col rounded-[18px] px-5 pb-6 pt-7 shadow-soft lg:max-w-none xl:mb-[42px] xl:min-h-[470px] ${tone.card}`}
+              >
+                {/* Lingkaran kuning dekoratif (kartu Pas Foto & Bundle) */}
+                {isPhoto && (
+                  <span className="pointer-events-none absolute -left-9 top-12 z-0 h-[94px] w-[94px] rounded-full bg-tsukure-yellow" aria-hidden />
+                )}
+                {isBundle && (
+                  <span className="pointer-events-none absolute -left-4 -top-4 z-0 h-[88px] w-[88px] rounded-full bg-tsukure-yellow" aria-hidden />
+                )}
+
+                <div className="relative z-10 flex flex-1 flex-col">
+                  <h3 className={[
+                    'font-display font-extrabold uppercase leading-[1.05] tracking-[-0.03em]',
+                    isBundle ? 'ml-12 text-[1.4rem] sm:text-[1.6rem]' : 'text-[1.6rem]',
+                  ].join(' ')}>
+                    <span className={isBundle ? 'block text-white' : 'block'}>{line1}</span>
+                    <span className={isBundle ? 'flex items-center gap-2 text-[2.1rem] leading-none text-white sm:text-[2.5rem]' : 'flex items-center gap-2 text-[2.1rem] leading-none sm:text-[2.5rem]'}>
+                      {line2}
+                      {isBundle && <span className="text-[1.5rem] leading-none text-white" aria-hidden>👍</span>}
+                    </span>
+                  </h3>
+
+                  <p className={`mt-5 text-center text-[1.4rem] font-medium leading-none line-through decoration-2 ${tone.strike}`}>
+                    <span className="sr-only">Harga normal </span>
+                    {formatRupiah(plan.original)}
+                  </p>
+                  <p className={[
+                    'mt-1 text-center font-display font-extrabold leading-[1.1] tracking-[-0.04em]',
+                    isBundle ? 'text-[2.7rem] sm:text-[3.1rem]' : 'text-[2.9rem] sm:text-[3.3rem]',
+                  ].join(' ')}>
+                    <span className="sr-only">Harga sekarang </span>
+                    {formatRupiah(plan.current)}
+                  </p>
+
+                  <h4 className={[
+                    'mt-6 text-[0.95rem] font-extrabold',
+                    isBundle ? 'text-white' : 'text-brand-navy',
+                  ].join(' ')}>Yang kamu dapat :</h4>
+
+                  <ul className={[
+                    'mt-3 space-y-2.5',
+                    isBundle ? 'text-white' : 'text-brand-navy',
+                  ].join(' ')}>
+                    {plan.features.map((feature) => {
+                      const isGuarantee = feature.startsWith('*Garansi');
+                      return (
+                        <li key={feature} className="flex gap-2 text-[0.92rem] leading-snug sm:text-[0.98rem]">
+                          <Check className="!h-4 !w-4 text-current" />
+                          <span className="block">
+                            {feature}
+                            {isGuarantee && plan.id !== 'photo' && plan.guaranteeNote && (
+                              <span className={`mt-0.5 block text-[0.72rem] ${tone.note}`}>{plan.guaranteeNote}</span>
+                            )}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+
+                  <div className="mt-auto flex justify-center pt-7">
+                    <WaCta
+                      place={`pricing-${plan.id}`}
+                      className={`!w-auto !min-w-[140px] !rounded-full !border-2 !px-5 !py-2 !text-[0.9rem] !font-bold !shadow-none ${tone.btn}`}
+                    >
+                      Mau Paket Ini
+                    </WaCta>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </ViewTracker>
@@ -211,7 +383,7 @@ export function CvFaq() {
     ['Apa saja data yang harus dikirim?', 'Dokumen yang diperlukan untuk CV, seperti foto dan data diri. Kamu kirim lewat WhatsApp Admin.'],
     ['Bagaimana proses revisi?', 'Setelah draft pertama jadi, kamu bisa mengajukan revisi sesuai kebutuhan sampai CV disetujui.'],
     ['Apakah ada invoice?', 'Ada. Admin membuat invoice resmi sebelum draft pertama CV dibuat.'],
-    ['Berapa harganya?', `${formatRupiah(CV_PRICE.current)} (harga perkenalan), dari harga normal ${formatRupiah(CV_PRICE.original)}.`],
+    ['Berapa harganya?', `Tersedia paket Edit Pas Foto ${formatRupiah(CV_PACKAGES[0].current)}, CV Only ${formatRupiah(CV_PACKAGES[1].current)}, dan Bundle ${formatRupiah(CV_PACKAGES[2].current)}.`],
     ['Bagaimana pembayaran?', 'Pembayaran mengikuti invoice resmi dari admin. Detail cara bayar diberikan admin lewat WhatsApp.'],
     ['File akhirnya apa saja?', 'Softfile dan file siap print.'],
     ['Apa itu file siap print?', 'File CV yang disiapkan supaya bisa langsung dicetak.'],
@@ -225,18 +397,6 @@ export function CvFaq() {
         <div className="mt-8"><FAQAccordion items={items.map(([question, answer], i) => ({ id: String(i), question, answer }))} /></div>
       </div>
     </section>
-  );
-}
-
-export function CvFinalCta() {
-  return (
-    <ViewTracker event="cv_cta_click" id="mulai" className="section bg-brand-navy" hideSticky>
-      <div className="container-x text-center">
-        <h2 className="mx-auto max-w-2xl font-display text-3xl font-extrabold text-white sm:text-5xl">Sudah waktunya punya CV yang lebih siap buat melamar.</h2>
-        <p className="mx-auto mt-4 max-w-md text-lg text-white/80">Mulai dari data yang kamu punya. Selebihnya kita bantu rapikan.</p>
-        <WaCta place="final" onDark className="mt-8" />
-      </div>
-    </ViewTracker>
   );
 }
 

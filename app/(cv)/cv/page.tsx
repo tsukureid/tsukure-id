@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 import { getPortfolio } from '@/lib/data';
 import { siteUrl } from '@/lib/utils';
 import { jsonLd } from '@/lib/seo';
-import { CV_PRICE } from '@/lib/cv-config';
+import { CV_PACKAGES } from '@/lib/cv-config';
 import { StickyCta } from '@/components/cv/sticky-cta';
 import { UtmCapture } from '@/components/utm-capture';
 import {
-  CvBeforeAfter, CvBenefits, CvFaq, CvFinalCta, CvFooter, CvHero, CvPortfolioSection,
+  CvBeforeAfter, CvBenefits, CvFaq, CvFooter, CvHero, CvPortfolioSection,
   CvPricing, CvProblem, CvProcess, CvPromise, CvValue,
 } from '@/components/cv/sections';
 
@@ -32,7 +32,14 @@ export default async function CvLanding() {
     {
       '@context': 'https://schema.org', '@type': 'Service', name: 'Jasa Pembuatan CV Profesional', serviceType: 'Pembuatan CV', description: DESC, areaServed: 'ID',
       provider: { '@type': 'Organization', name: 'TSUKURE.ID', url: siteUrl('/') },
-      offers: { '@type': 'Offer', price: CV_PRICE.current, priceCurrency: 'IDR', url: URL },
+      offers: {
+        '@type': 'AggregateOffer',
+        lowPrice: Math.min(...CV_PACKAGES.map((plan) => plan.current)),
+        highPrice: Math.max(...CV_PACKAGES.map((plan) => plan.current)),
+        offerCount: CV_PACKAGES.length,
+        priceCurrency: 'IDR',
+        url: URL,
+      },
     },
   ];
   return (
@@ -47,7 +54,6 @@ export default async function CvLanding() {
       <CvProcess />
       <CvPricing />
       <CvFaq />
-      <CvFinalCta />
       <CvFooter />
       <StickyCta />
       <UtmCapture />
