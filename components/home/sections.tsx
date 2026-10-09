@@ -10,6 +10,7 @@ import { TrackLink } from '../track-link';
 import { ServiceIcon } from '../icons';
 import { priceFromLabel } from '@/lib/utils';
 import type { FaqView, PlanView, PortfolioView, ServiceView, TestimonialView } from '@/lib/data';
+import { RevealSection } from './reveal-section';
 
 export function Problem() {
   const pains = [
@@ -17,39 +18,39 @@ export function Problem() {
     'CV ATS itu apa?', 'CV lama gue sudah tidak menarik.', 'Takut CV nggak dilirik recruiter.',
   ];
   return (
-    <section className="section bg-brand-light" aria-labelledby="problem">
+    <RevealSection className="section bg-brand-light" aria-labelledby="problem">
       <div className="container-x grid gap-10 lg:grid-cols-2 lg:items-center">
         <SectionHeading id="problem" title={'Cari kerja aja udah bikin pusing.\nJangan ditambah CV.'} lead="Kalau kamu pernah mikir begini, kamu nggak sendirian." />
         <ul className="grid gap-3 sm:grid-cols-2">
           {pains.map((p) => <li key={p} className="rounded-2xl bg-white px-5 py-4 text-[15px] font-medium text-brand-navy shadow-soft">“{p}”</li>)}
         </ul>
       </div>
-    </section>
+    </RevealSection>
   );
 }
 
 export function BrandPromise() {
   return (
-    <section className="section bg-brand-navy text-white" aria-labelledby="promise">
+    <RevealSection className="section bg-brand-navy text-white" aria-labelledby="promise">
       <div className="container-x max-w-3xl">
         <span className="block h-1 w-10 rounded bg-brand-gold" aria-hidden />
         <h2 id="promise" className="mt-6 font-display text-3xl font-bold leading-tight text-white sm:text-5xl">Aku bakal dukung kamu selama proses cari kerja.</h2>
         <p className="mt-5 text-lg text-white/80">Mulai dari CV. Kami bantu kamu lebih siap melamar. Kamu nggak harus cari kerja sendirian.</p>
       </div>
-    </section>
+    </RevealSection>
   );
 }
 
 export function Services({ services }: { services: ServiceView[] }) {
   return (
-    <section id="layanan" className="section" aria-labelledby="layanan-h">
+    <RevealSection id="layanan" className="section" aria-labelledby="layanan-h">
       <div className="container-x">
         <SectionHeading id="layanan-h" title="CV yang Bisa Kamu Pilih" lead="Setiap layanan punya tujuan yang beda. Pilih yang paling pas dengan kondisi CV-mu sekarang." />
         <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s) => <li key={s.id}><ServiceCard s={s} /></li>)}
         </ul>
       </div>
-    </section>
+    </RevealSection>
   );
 }
 
@@ -57,7 +58,7 @@ export function FeaturedService({ service }: { service: ServiceView | undefined 
   if (!service) return null;
   const points = ['Hierarki informasi yang jelas', 'Tipografi bersih dan konsisten', 'Struktur mudah dipindai recruiter', 'Isi disesuaikan dengan posisi tujuan'];
   return (
-    <section className="section bg-brand-light" aria-labelledby="featured">
+    <RevealSection className="section bg-brand-light" aria-labelledby="featured">
       <div className="container-x grid items-center gap-10 lg:grid-cols-2">
         <div className="mx-auto w-full max-w-xs"><CvMock variant="clean" /></div>
         <div>
@@ -70,13 +71,13 @@ export function FeaturedService({ service }: { service: ServiceView | undefined 
           <TrackLink href={`/pesan?layanan=${service.slug}`} event="order_start" className="btn-primary mt-4">Pesan CV Profesional</TrackLink>
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }
 
 export function PortfolioSection({ items, whatsappHref }: { items: PortfolioView[]; whatsappHref: string | null }) {
   return (
-    <section id="portfolio" className="section" aria-labelledby="portfolio-h">
+    <RevealSection id="portfolio" className="section" aria-labelledby="portfolio-h">
       <div className="container-x">
         <SectionHeading id="portfolio-h" title={'Kerja Kami,\nBiar Kamu Nggak Cuma Percaya Kata‑Kata.'} />
         <div className="mt-10">
@@ -94,14 +95,14 @@ export function PortfolioSection({ items, whatsappHref }: { items: PortfolioView
           )}
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }
 
 export function BeforeAfter() {
   const rows = ['Hierarki informasi', 'Jarak dan tata letak', 'Tipografi', 'Struktur', 'Keterbacaan'];
   return (
-    <section id="before-after" className="section bg-brand-light" aria-labelledby="ba">
+    <RevealSection id="before-after" className="section bg-brand-light" aria-labelledby="ba">
       <div className="container-x grid items-center gap-10 lg:grid-cols-2">
         <div>
           <h2 id="ba" className="h2">Bedanya Kelihatan.</h2>
@@ -113,14 +114,14 @@ export function BeforeAfter() {
           <p className="mt-3 text-center text-xs text-brand-ink/55">Ilustrasi prinsip tata letak, bukan hasil klien.</p>
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }
 
 export function HowItWorks() {
   const steps = ['Pilih Layanan', 'Isi Data', 'Kirim Dokumen', 'TSUKURE.ID Mengerjakan', 'Revisi', 'CV Final Siap Digunakan'];
   return (
-    <section id="cara-kerja" className="section" aria-labelledby="cara">
+    <RevealSection id="cara-kerja" className="section" aria-labelledby="cara">
       <div className="container-x">
         <SectionHeading id="cara" title="Pesan CV Tanpa Ribet." />
         <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -132,7 +133,7 @@ export function HowItWorks() {
           ))}
         </ol>
       </div>
-    </section>
+    </RevealSection>
   );
 }
 
@@ -146,7 +147,7 @@ export function WhyUs() {
     ['Fokus ke fresh graduate', 'Kami paham cara menonjolkan organisasi, magang, dan proyek saat pengalaman kerja belum ada.'],
   ];
   return (
-    <section className="section bg-brand-light" aria-labelledby="why">
+    <RevealSection className="section bg-brand-light" aria-labelledby="why">
       <div className="container-x">
         <SectionHeading id="why" title="Bukan Cuma Dibikinin CV." lead="Kenapa nggak bikin sendiri di Canva? Bisa. Bedanya ada di sini:" />
         <dl className="mt-10 grid gap-x-10 gap-y-7 sm:grid-cols-2">
@@ -158,14 +159,14 @@ export function WhyUs() {
           ))}
         </dl>
       </div>
-    </section>
+    </RevealSection>
   );
 }
 
 export function Testimonials({ items }: { items: TestimonialView[] }) {
   if (items.length === 0) return null; // tidak ada testimoni palsu: bagian tampil hanya bila ada data nyata
   return (
-    <section className="section" aria-labelledby="testi">
+    <RevealSection className="section" aria-labelledby="testi">
       <div className="container-x">
         <SectionHeading id="testi" title="Yang Sudah Kami Bantu" />
         <ul className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -183,36 +184,36 @@ export function Testimonials({ items }: { items: TestimonialView[] }) {
           ))}
         </ul>
       </div>
-    </section>
+    </RevealSection>
   );
 }
 
 export function PricingSection({ plans, whatsappHref }: { plans: PlanView[]; whatsappHref: string | null }) {
   return (
-    <section id="harga" className="section" aria-labelledby="harga-h">
+    <RevealSection id="harga" className="section" aria-labelledby="harga-h">
       <div className="container-x">
         <SectionHeading id="harga-h" title="Pilih CV yang Paling Cocok." />
         <div className="mt-10"><PricingGrid plans={plans} whatsappHref={whatsappHref} /></div>
       </div>
-    </section>
+    </RevealSection>
   );
 }
 
 export function FaqSection({ items }: { items: FaqView[] }) {
   return (
-    <section id="faq" className="section bg-brand-light" aria-labelledby="faq-h">
+    <RevealSection id="faq" className="section bg-brand-light" aria-labelledby="faq-h">
       <div className="container-x max-w-3xl">
         <SectionHeading id="faq-h" title="Pertanyaan yang Sering Muncul" />
         <div className="mt-8"><FAQAccordion items={items.slice(0, 6)} /></div>
         <Link href="/faq" className="btn-ghost mt-4">Lihat semua FAQ</Link>
       </div>
-    </section>
+    </RevealSection>
   );
 }
 
 export function FinalCta({ whatsappHref }: { whatsappHref: string | null }) {
   return (
-    <section className="section bg-brand-blue" aria-labelledby="cta">
+    <RevealSection className="section bg-brand-blue" aria-labelledby="cta">
       <div className="container-x text-center">
         <h2 id="cta" className="mx-auto max-w-2xl font-display text-3xl font-extrabold text-brand-navy sm:text-5xl">Mulai dari CV. Kami bantu siapin sisanya.</h2>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -220,7 +221,7 @@ export function FinalCta({ whatsappHref }: { whatsappHref: string | null }) {
           {whatsappHref && <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="btn border border-brand-navy/40 text-brand-navy hover:bg-white">Chat WhatsApp</a>}
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
 }
 

@@ -5,7 +5,7 @@ import { TrackLink } from './track-link';
 
 export function ServiceCard({ s }: { s: ServiceView }) {
   return (
-    <article className="card flex h-full flex-col">
+    <article className="card flex h-full flex-col transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-xl motion-reduce:transform-none motion-reduce:transition-none">
       <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-light text-brand-blue-dark"><ServiceIcon name={s.icon} /></span>
       <h3 className="mt-4 text-xl font-bold">{s.name}</h3>
       <p className="mt-2 flex-1 text-[15px] leading-relaxed text-brand-ink/75">{s.tagline}</p>

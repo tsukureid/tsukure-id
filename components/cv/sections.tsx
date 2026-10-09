@@ -1,9 +1,11 @@
+import Image from 'next/image';
 import { BeforeAfterSlider } from '../before-after-slider';
 import { CvMock } from '../cv-mock';
 import { FAQAccordion } from '../faq-accordion';
 import { CvPortfolio } from './portfolio';
 import { PortfolioAnchorCta, WaCta } from './cta';
 import { ViewTracker } from './view-tracker';
+import { ScrollReveal } from '../home/reveal-section';
 import { CV_PACKAGES } from '@/lib/cv-config';
 /** Format "Rp29.000" persis seperti brief (tanpa spasi). */
 const formatRupiah = (n: number) => `Rp${n.toLocaleString('id-ID')}`;
@@ -16,9 +18,12 @@ const Check = ({ className = 'text-brand-navy' }: { className?: string }) => (
 
 const TsukureLogo = ({ className = '' }: { className?: string }) => (
   <div className={`flex items-center ${className}`}>
-    <img
+    <Image
       src="/TSUKURE_LOGO_HORIZONTAL.png"
       alt="Tsukure.id logo"
+      width={1177}
+      height={412}
+      sizes="(min-width: 1024px) 138px, 92px"
       className="h-8 w-auto object-contain sm:h-10 lg:h-12"
     />
   </div>
@@ -29,18 +34,22 @@ export function CvHero() {
     <section className="relative overflow-hidden bg-white" aria-labelledby="hero-h">
       {/* Lingkaran biru muda: kepotong di pojok kanan atas (mobile & desktop) */}
       <div
-        className="pointer-events-none absolute -right-[90px] -top-[90px] h-[270px] w-[270px] rounded-full bg-[#dceeff] lg:-right-[150px] lg:-top-[165px] lg:h-[380px] lg:w-[380px]"
+        className="pointer-events-none absolute -right-[90px] -top-[90px] h-[270px] w-[270px] animate-float bg-[#dceeff] motion-reduce:animate-none lg:-right-[150px] lg:-top-[165px] lg:h-[380px] lg:w-[380px]"
         aria-hidden
       />
 
       <div className="container-x relative mx-auto grid w-full max-w-[1240px] pt-6 sm:pt-8 lg:grid-cols-[1.12fr_0.88fr] lg:grid-rows-[1fr_auto_auto_auto_1fr] lg:gap-x-2 lg:pt-10">
         {/* 1. Logo + headline + subjudul */}
-        <div className="relative z-10 text-left lg:col-start-1 lg:row-start-2">
+        <div
+          style={{ animationDelay: '80ms' }}
+          className="relative z-10 text-left motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade lg:col-start-1 lg:row-start-2"
+        >
           <TsukureLogo className="mb-5 lg:mb-10" />
 
           <h1
             id="hero-h"
-            className="whitespace-nowrap text-[2rem] font-extrabold leading-[1.3] tracking-[-0.045em] text-brand-navy min-[380px]:text-[2.2rem] min-[430px]:text-[2.4rem] sm:text-[3rem] lg:text-[2.6rem] lg:leading-[1.32] xl:text-[3.2rem]"
+            style={{ animationDelay: '180ms' }}
+            className="whitespace-nowrap text-[2rem] font-extrabold leading-[1.3] tracking-[-0.045em] text-brand-navy motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal min-[380px]:text-[2.2rem] min-[430px]:text-[2.4rem] sm:text-[3rem] lg:text-[2.6rem] lg:leading-[1.32] xl:text-[3.2rem]"
           >
             Masa Depan{' '}
             <br className="lg:hidden" />
@@ -51,7 +60,10 @@ export function CvHero() {
             CV yang Tepat.
           </h1>
 
-          <p className="mt-5 text-[1.1rem] leading-[1.5] text-brand-ink/80 min-[430px]:text-[1.2rem] sm:text-[1.35rem] lg:mt-8 lg:text-[1.35rem] lg:leading-[1.55] xl:text-[1.7rem]">
+          <p
+            style={{ animationDelay: '300ms' }}
+            className="mt-5 text-[1.1rem] leading-[1.5] text-brand-ink/80 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade min-[430px]:text-[1.2rem] sm:text-[1.35rem] lg:mt-8 lg:text-[1.35rem] lg:leading-[1.55] xl:text-[1.7rem]"
+          >
             Buat kesan pertama yang membuat HRD
             <br />
             ingin mengenalmu lebih jauh.
@@ -59,22 +71,35 @@ export function CvHero() {
         </div>
 
         {/* 2. Foto: di tengah (mobile) / kolom kanan, nempel bawah (desktop) */}
-        <div className="relative mt-6 flex justify-center lg:col-start-2 lg:row-span-5 lg:row-start-1 lg:mt-0 lg:items-end lg:justify-end">
-          <img
+        <div
+          style={{ animationDelay: '220ms' }}
+          className="relative mt-6 flex justify-center motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal lg:col-start-2 lg:row-span-5 lg:row-start-1 lg:mt-0 lg:items-end lg:justify-end"
+        >
+          <Image
             src="/BRAND_AMBASSADOR.png"
             alt="Profesional wanita memegang CV"
-            className="relative z-10 h-auto w-[86%] max-w-[430px] object-contain object-bottom lg:h-[600px] lg:w-auto lg:max-w-none xl:h-[680px]"
+            width={1254}
+            height={1254}
+            sizes="(min-width: 1280px) 680px, (min-width: 1024px) 600px, 86vw"
+            priority
+            className="relative z-10 h-auto w-[86%] max-w-[430px] animate-float object-contain object-bottom motion-reduce:animate-none lg:h-[600px] lg:w-auto lg:max-w-none xl:h-[680px]"
           />
         </div>
 
         {/* 3. Tombol */}
-        <div className="relative z-10 mt-1 flex flex-col gap-3 lg:col-start-1 lg:row-start-3 lg:mt-9 lg:flex-row">
+        <div
+          style={{ animationDelay: '420ms' }}
+          className="relative z-10 mt-1 flex flex-col gap-3 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal lg:col-start-1 lg:row-start-3 lg:mt-9 lg:flex-row"
+        >
           <WaCta place="hero" className="w-full lg:w-auto lg:min-w-[210px]" />
           <PortfolioAnchorCta className="w-full lg:w-auto lg:min-w-[210px]" />
         </div>
 
         {/* 4. Catatan */}
-        <p className="relative z-10 mt-7 px-1.5 pb-8 text-[0.95rem] min-[430px]:text-[1.05rem] sm:text-[1.15rem] font-medium leading-[1.6] text-brand-navy/70 lg:col-start-1 lg:row-start-4 lg:mt-10 lg:px-1 lg:pb-0 lg:text-[0.95rem] xl:text-[1.15rem]">
+        <p
+          style={{ animationDelay: '520ms' }}
+          className="relative z-10 mt-7 px-1.5 pb-8 text-[0.95rem] min-[430px]:text-[1.05rem] sm:text-[1.15rem] font-medium leading-[1.6] text-brand-navy/70 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade lg:col-start-1 lg:row-start-4 lg:mt-10 lg:px-1 lg:pb-0 lg:text-[0.95rem] xl:text-[1.15rem]"
+        >
           *Tenang aja, CV-mu bisa terus disesuaikan GRATIS
           <br />
           sampai kamu dapat kerja.
@@ -94,7 +119,13 @@ export function CvProblem() {
           <p className="mt-4 max-w-lg text-base leading-relaxed text-brand-ink/75 sm:text-lg">Mulai dari bingung harus isi apa, bikin desainnya gimana, sampai takut CV-mu nggak dilirik HRD.</p>
         </div>
         <ul className="grid gap-3 sm:grid-cols-2">
-          {pains.map((p) => <li key={p} className="rounded-2xl bg-white px-5 py-4 text-[15px] font-medium text-brand-navy shadow-soft ring-1 ring-brand-navy/5">“{p}”</li>)}
+          {pains.map((p, index) => (
+            <li
+              key={p}
+              style={{ animationDelay: `${index * 70}ms` }}
+              className="rounded-2xl bg-white px-5 py-4 text-[15px] font-medium text-brand-navy shadow-soft ring-1 ring-brand-navy/5 transition-transform duration-300 ease-out hover:-translate-y-1 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal motion-reduce:transform-none motion-reduce:transition-none"
+            >“{p}”</li>
+          ))}
         </ul>
       </div>
     </section>
@@ -105,9 +136,12 @@ export function CvPromise() {
   return (
     <section className="section bg-brand-navy" aria-labelledby="promise-h">
       <div className="container-x max-w-4xl">
-        <span className="block h-1.5 w-12 rounded bg-tsukure-yellow" aria-hidden />
-        <h2 id="promise-h" className="mt-6 font-display text-3xl font-bold leading-tight text-white sm:text-5xl max-w-3xl">Aku bakal dukung kamu selama proses cari kerja.</h2>
-        <p className="mt-5 text-lg text-white/80">Mulai dari CV. Kami bantu kamu lebih siap melamar.</p>
+        <span
+          className="block h-1.5 w-12 origin-left rounded bg-tsukure-yellow motion-safe:group-data-[reveal-state=visible]/reveal:animate-fade-in-up"
+          aria-hidden
+        />
+        <h2 id="promise-h" style={{ animationDelay: '120ms' }} className="mt-6 max-w-3xl font-display text-3xl font-bold leading-tight text-white motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal sm:text-5xl">Aku bakal dukung kamu selama proses cari kerja.</h2>
+        <p style={{ animationDelay: '260ms' }} className="mt-5 text-lg text-white/80 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade">Mulai dari CV. Kami bantu kamu lebih siap melamar.</p>
       </div>
     </section>
   );
@@ -124,11 +158,15 @@ export function CvValue() {
   return (
     <section className="section bg-[#f3f3f3]" aria-labelledby="value-h">
       <div className="container-x max-w-6xl">
-        <h2 id="value-h" className="max-w-4xl font-display text-3xl font-extrabold leading-[1.05] tracking-[-0.04em] text-brand-navy sm:text-5xl">Nggak Perlu Pusing Bikin CV. Kami Bantu Bikin Kamu Lebih Siap Melamar.</h2>
-        <p className="mt-5 max-w-4xl text-base leading-relaxed text-brand-ink/75 sm:text-lg">Dari isi sampai tampilannya, kami bantu bikin CV yang lebih rapi, profesional, dan mampu menampilkan potensi terbaikmu.</p>
+        <h2 id="value-h" style={{ animationDelay: '100ms' }} className="max-w-4xl font-display text-3xl font-extrabold leading-[1.05] tracking-[-0.04em] text-brand-navy motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal sm:text-5xl">Nggak Perlu Pusing Bikin CV. Kami Bantu Bikin Kamu Lebih Siap Melamar.</h2>
+        <p style={{ animationDelay: '220ms' }} className="mt-5 max-w-4xl text-base leading-relaxed text-brand-ink/75 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade sm:text-lg">Dari isi sampai tampilannya, kami bantu bikin CV yang lebih rapi, profesional, dan mampu menampilkan potensi terbaikmu.</p>
         <ul className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(([t, d]) => (
-            <li key={t} className="flex items-start border-l-4 border-tsukure-yellow py-1 pl-5">
+          {items.map(([t, d], index) => (
+            <li
+              key={t}
+              style={{ animationDelay: `${index * 90}ms` }}
+              className="flex items-start border-l-4 border-tsukure-yellow py-1 pl-5 transition-transform duration-300 ease-out hover:translate-x-1 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal motion-reduce:transform-none motion-reduce:transition-none"
+            >
               <div>
                 <h3 className="text-lg font-bold leading-snug text-brand-navy">{t}</h3>
                 <p className="mt-2 text-base leading-relaxed text-brand-ink/70">{d}</p>
@@ -145,7 +183,7 @@ export function CvPortfolioSection({ items }: { items: PortfolioView[] }) {
   return (
     <section id="contoh-cv" className="section bg-brand-light" aria-labelledby="contoh-h">
       <div className="container-x">
-        <h2 id="contoh-h" className="h2">Contoh CV yang Kami Buat</h2>
+        <h2 id="contoh-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Contoh CV yang Kami Buat</h2>
         <div className="mt-8">
           {items.length === 0 ? (
             <div className="rounded-xl2 bg-white p-8 shadow-soft">
@@ -164,24 +202,33 @@ export function CvBeforeAfter() {
   return (
     <section className="section pb-0" aria-labelledby="ba-h">
       <div className="container-x grid items-end gap-10 lg:grid-cols-2">
-        <div className="flex items-end justify-center lg:justify-start">
-          <img
+        <div
+          style={{ animationDelay: '100ms' }}
+          className="flex items-end justify-center motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal lg:justify-start"
+        >
+          <Image
             src="/BRAND_AMBASSADOR2.png"
             alt="Profesional wanita memegang CV"
+            width={1254}
+            height={1254}
+            sizes="(min-width: 1280px) 680px, (min-width: 1024px) 600px, 86vw"
             className="mx-auto block h-auto w-[86%] max-w-[430px] object-contain object-bottom lg:mx-0 lg:h-[600px] lg:w-[600px] lg:max-w-none xl:h-[680px] xl:w-[680px]"
           />
         </div>
         <div>
-          <h2 id="ba-h" className="h2">Bedanya Kelihatan.</h2>
-          <p className="lead mt-4">Isinya sama, hasilnya beda. Geser untuk melihat struktur, jarak, tipografi, dan keterbacaan sebelum dan sesudah dirapikan.</p>
-          <div className="mt-6">
+          <h2 id="ba-h" style={{ animationDelay: '180ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Bedanya Kelihatan.</h2>
+          <p style={{ animationDelay: '260ms' }} className="lead mt-4 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade">Isinya sama, hasilnya beda. Geser untuk melihat struktur, jarak, tipografi, dan keterbacaan sebelum dan sesudah dirapikan.</p>
+          <div style={{ animationDelay: '340ms' }} className="mt-6 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">
             <BeforeAfterSlider
               before={<CvMock variant="messy" className="rounded-none border-0" />}
               after={
-                <img
+                <Image
                   src="/perbandingan%20sebelum%20dan%20sesudah.jpg"
                   alt="Perbandingan CV sebelum dan sesudah dirapikan"
-                  className="aspect-[3/4] w-full object-contain"
+                  width={1792}
+                  height={2400}
+                  sizes="(min-width: 640px) 24rem, 100vw"
+                  className="h-auto w-full object-contain"
                 />
               }
             />
@@ -198,14 +245,14 @@ export function CvBenefits() {
   return (
     <section className="section bg-[#f6f8fb]" aria-labelledby="benefit-h">
       <div className="container-x">
-        <h2 id="benefit-h" className="h2">Bukan Cuma Dibikinin CV.</h2>
+        <h2 id="benefit-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Bukan Cuma Dibikinin CV.</h2>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
-          <article className="rounded-xl2 bg-white p-7 shadow-soft ring-1 ring-brand-navy/5">
+          <article style={{ animationDelay: '180ms' }} className="rounded-xl2 bg-white p-7 shadow-soft ring-1 ring-brand-navy/5 transition-transform duration-300 ease-out hover:-translate-y-1 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal motion-reduce:transform-none motion-reduce:transition-none">
             <p className="w-fit rounded-full bg-[#eef6ff] px-3 py-1 text-xs font-bold text-brand-navy">Sudah termasuk</p>
             <h3 className="mt-4 text-2xl font-bold text-brand-navy">Include Edit Pas Foto Professional</h3>
             <p className="mt-3 text-brand-ink/75">Pas foto kamu dibantu dirapikan agar lebih siap digunakan di CV.</p>
           </article>
-          <article className="rounded-xl2 bg-brand-navy p-7 text-white shadow-soft">
+          <article style={{ animationDelay: '300ms' }} className="rounded-xl2 bg-brand-navy p-7 text-white shadow-soft transition-transform duration-300 ease-out hover:-translate-y-1 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal motion-reduce:transform-none motion-reduce:transition-none">
             <p className="w-fit rounded-full bg-tsukure-yellow px-3 py-1 text-xs font-bold text-brand-ink">Garansi</p>
             <h3 className="mt-4 text-2xl font-bold text-white">Garansi Selamanya</h3>
             <p className="mt-3 text-white/85">Gratis revisi alamat kerja selamanya.</p>
@@ -213,7 +260,13 @@ export function CvBenefits() {
           </article>
         </div>
         <ul className="mt-8 flex flex-wrap gap-2">
-          {support.map((s) => <li key={s} className="rounded-full bg-white px-4 py-2 text-sm font-medium text-brand-navy ring-1 ring-brand-navy/5">{s}</li>)}
+          {support.map((s, index) => (
+            <li
+              key={s}
+              style={{ animationDelay: `${index * 60}ms` }}
+              className="rounded-full bg-white px-4 py-2 text-sm font-medium text-brand-navy ring-1 ring-brand-navy/5 transition-transform duration-200 ease-out hover:-translate-y-0.5 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade motion-reduce:transform-none motion-reduce:transition-none"
+            >{s}</li>
+          ))}
         </ul>
       </div>
     </section>
@@ -229,10 +282,14 @@ export function CvProcess() {
   return (
     <section className="section" aria-labelledby="proses-h">
       <div className="container-x">
-        <h2 id="proses-h" className="h2">Pesan CV Tanpa Ribet.</h2>
+        <h2 id="proses-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Pesan CV Tanpa Ribet.</h2>
         <ol className="mt-10 grid gap-6 md:grid-cols-3">
           {steps.map(([t, d], i) => (
-            <li key={t} className="rounded-xl2 border border-brand-navy/10 p-6">
+            <li
+              key={t}
+              style={{ animationDelay: `${i * 120}ms` }}
+              className="rounded-xl2 border border-brand-navy/10 p-6 transition-transform duration-300 ease-out hover:-translate-y-1 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal motion-reduce:transform-none motion-reduce:transition-none"
+            >
               <span className="grid h-11 w-11 place-items-center rounded-full bg-tsukure-yellow font-display text-lg font-extrabold text-brand-ink" aria-hidden>{i + 1}</span>
               <h3 className="mt-4 text-xl font-bold"><span className="sr-only">Langkah {i + 1}: </span>{t}</h3>
               {d.map((p) => <p key={p} className="mt-2 text-[15px] leading-relaxed text-brand-ink/75">{p}</p>)}
@@ -259,12 +316,12 @@ export function CvPricing() {
       />
 
       <div className="container-x relative mx-auto max-w-[1500px]">
-        <h2 className="text-center font-display text-[1.9rem] font-extrabold uppercase leading-[1.1] tracking-[-0.03em] text-brand-navy sm:text-[2.5rem] lg:text-[2.8rem] xl:whitespace-nowrap xl:text-[3.2rem]">
+        <h2 style={{ animationDelay: '100ms' }} className="text-center font-display text-[1.9rem] font-extrabold uppercase leading-[1.1] tracking-[-0.03em] text-brand-navy motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal sm:text-[2.5rem] lg:text-[2.8rem] xl:whitespace-nowrap xl:text-[3.2rem]">
           Pilih Paket Sesuai Kebutuhanmu
         </h2>
 
         <div className="mt-8 grid items-stretch gap-3 lg:grid-cols-3 xl:mt-10 xl:gap-2">
-          {CV_PACKAGES.map((plan) => {
+          {CV_PACKAGES.map((plan, index) => {
             const isPhoto = plan.id === 'photo';
             const isCvOnly = plan.id === 'cv-only';
             const isBundle = plan.id === 'bundle';
@@ -297,19 +354,24 @@ export function CvPricing() {
                 : ['PAKET', 'BUNDLE'];
 
             return (
-              <article
+              <ScrollReveal
                 key={plan.id}
-                className={`relative z-10 mx-auto flex min-h-[470px] w-full max-w-[300px] flex-col rounded-[18px] px-5 pb-6 pt-7 shadow-soft lg:max-w-none xl:mb-[42px] xl:min-h-[470px] ${tone.card}`}
+                className="h-full"
+                animation="premium-reveal"
+                style={{ animationDelay: `${index * 140}ms` }}
               >
-                {/* Lingkaran kuning dekoratif (kartu Pas Foto & Bundle) */}
-                {isPhoto && (
-                  <span className="pointer-events-none absolute -left-9 top-12 z-0 h-[94px] w-[94px] rounded-full bg-tsukure-yellow" aria-hidden />
-                )}
-                {isBundle && (
-                  <span className="pointer-events-none absolute -left-4 -top-4 z-0 h-[88px] w-[88px] rounded-full bg-tsukure-yellow" aria-hidden />
-                )}
+                <article
+                  className={`relative z-10 mx-auto flex min-h-[470px] w-full max-w-[300px] flex-col rounded-[18px] px-5 pb-6 pt-7 shadow-soft transition-transform duration-300 ease-out hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none lg:max-w-none xl:mb-[42px] xl:min-h-[470px] ${tone.card}`}
+                >
+                  {/* Lingkaran kuning dekoratif (kartu Pas Foto & Bundle) */}
+                  {isPhoto && (
+                    <span className="pointer-events-none absolute -left-9 top-12 z-0 h-[94px] w-[94px] rounded-full bg-tsukure-yellow" aria-hidden />
+                  )}
+                  {isBundle && (
+                    <span className="pointer-events-none absolute -left-4 -top-4 z-0 h-[88px] w-[88px] rounded-full bg-tsukure-yellow" aria-hidden />
+                  )}
 
-                <div className="relative z-10 flex flex-1 flex-col">
+                  <div className="relative z-10 flex flex-1 flex-col">
                   <h3 className={[
                     'font-display font-extrabold uppercase leading-[1.05] tracking-[-0.03em]',
                     isBundle ? 'ml-12 text-[1.4rem] sm:text-[1.6rem]' : 'text-[1.6rem]',
@@ -342,10 +404,14 @@ export function CvPricing() {
                     'mt-3 space-y-2.5',
                     isBundle ? 'text-white' : 'text-brand-navy',
                   ].join(' ')}>
-                    {plan.features.map((feature) => {
+                    {plan.features.map((feature, index) => {
                       const isGuarantee = feature.startsWith('*Garansi');
                       return (
-                        <li key={feature} className="flex gap-2 text-[0.92rem] leading-snug sm:text-[0.98rem]">
+                        <li
+                          key={feature}
+                          style={{ animationDelay: `${index * 70}ms` }}
+                          className="flex gap-2 text-[0.92rem] leading-snug motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade sm:text-[0.98rem]"
+                        >
                           <Check className="!h-4 !w-4 text-current" />
                           <span className="block">
                             {feature}
@@ -366,8 +432,9 @@ export function CvPricing() {
                       Mau Paket Ini
                     </WaCta>
                   </div>
-                </div>
-              </article>
+                  </div>
+                </article>
+              </ScrollReveal>
             );
           })}
         </div>
@@ -393,8 +460,8 @@ export function CvFaq() {
   return (
     <section className="section" aria-labelledby="faq-h">
       <div className="container-x max-w-3xl">
-        <h2 id="faq-h" className="h2">Pertanyaan yang Sering Muncul</h2>
-        <div className="mt-8"><FAQAccordion items={items.map(([question, answer], i) => ({ id: String(i), question, answer }))} /></div>
+        <h2 id="faq-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Pertanyaan yang Sering Muncul</h2>
+        <div style={{ animationDelay: '200ms' }} className="mt-8 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade"><FAQAccordion items={items.map(([question, answer], i) => ({ id: String(i), question, answer }))} /></div>
       </div>
     </section>
   );

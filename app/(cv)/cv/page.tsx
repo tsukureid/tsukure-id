@@ -5,6 +5,7 @@ import { jsonLd } from '@/lib/seo';
 import { CV_PACKAGES } from '@/lib/cv-config';
 import { StickyCta } from '@/components/cv/sticky-cta';
 import { UtmCapture } from '@/components/utm-capture';
+import { ScrollReveal } from '@/components/home/reveal-section';
 import {
   CvBeforeAfter, CvBenefits, CvFaq, CvFooter, CvHero, CvPortfolioSection,
   CvPricing, CvProblem, CvProcess, CvPromise, CvValue,
@@ -44,17 +45,17 @@ export default async function CvLanding() {
   ];
   return (
     <>
-      <CvHero />
-      <CvProblem />
-      <CvPromise />
-      <CvValue />
-      <CvPortfolioSection items={portfolio} />
-      <CvBeforeAfter />
-      <CvBenefits />
-      <CvProcess />
-      <CvPricing />
-      <CvFaq />
-      <CvFooter />
+      <ScrollReveal><CvHero /></ScrollReveal>
+      <ScrollReveal><CvProblem /></ScrollReveal>
+      <ScrollReveal><CvPromise /></ScrollReveal>
+      <ScrollReveal><CvValue /></ScrollReveal>
+      <ScrollReveal><CvPortfolioSection items={portfolio} /></ScrollReveal>
+      <ScrollReveal><CvBeforeAfter /></ScrollReveal>
+      <ScrollReveal><CvBenefits /></ScrollReveal>
+      <ScrollReveal><CvProcess /></ScrollReveal>
+      <ScrollReveal><CvPricing /></ScrollReveal>
+      <ScrollReveal><CvFaq /></ScrollReveal>
+      <ScrollReveal><CvFooter /></ScrollReveal>
       <StickyCta />
       <UtmCapture />
       {ld.map((d, i) => <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(d) }} />)}

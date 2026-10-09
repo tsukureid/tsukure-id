@@ -30,7 +30,7 @@ export function PortfolioGrid({ items }: { items: Item[] }) {
         <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((p) => (
             <li key={p.id}>
-              <article className="card h-full overflow-hidden p-0">
+              <article className="card h-full overflow-hidden p-0 transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-xl motion-reduce:transform-none motion-reduce:transition-none">
                 <div className="relative aspect-[3/4] bg-brand-light">
                   <Image src={p.image} alt={`Contoh CV: ${p.title}`} unoptimized={p.image.startsWith("http")} fill sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" className="object-cover object-top" />
                 </div>

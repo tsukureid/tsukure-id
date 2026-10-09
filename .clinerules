@@ -1,0 +1,6 @@
+Konteks: Proyek Tsukure-id (Next.js App Router, Drizzle ORM, Tailwind CSS).
+Aturan Overpowered:
+- Security: Terapkan validasi ketat (Zod) di semua Server Actions (`app/(site)/**/actions.ts` dan `app/admin/actions.ts`). Jangan ada plain text secret.
+- Performance: Optimalkan query Drizzle ORM di `lib/db.ts`. Gunakan Next.js caching (`unstable_cache` atau `revalidateTag`) untuk pengambilan data.
+- Architecture: Jaga Server Components tetap stateless. Komponen interaktif di `components/` harus dipisahkan dengan jelas menggunakan "use client".
+- Error Handling: Gunakan `app/error.tsx` dengan elegan dan log error dengan rapi.

@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
+    "sonarsource.sonarlint-vscode",
+    "usernamehw.errorlens",
+    "eamodio.gitlens"
+  ]
+}
