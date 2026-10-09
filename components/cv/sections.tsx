@@ -34,7 +34,7 @@ export function CvHero() {
     <section className="relative overflow-hidden bg-white" aria-labelledby="hero-h">
       {/* Lingkaran biru muda: kepotong di pojok kanan atas (mobile & desktop) */}
       <div
-        className="pointer-events-none absolute -right-[90px] -top-[90px] h-[270px] w-[270px] animate-float bg-[#dceeff] motion-reduce:animate-none lg:-right-[150px] lg:-top-[165px] lg:h-[380px] lg:w-[380px]"
+        className="pointer-events-none absolute -right-[90px] -top-[90px] h-[270px] w-[270px] rounded-full animate-float bg-[#dceeff] motion-reduce:animate-none lg:-right-[150px] lg:-top-[165px] lg:h-[380px] lg:w-[380px]"
         aria-hidden
       />
 
