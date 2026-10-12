@@ -208,7 +208,7 @@ export function CvBeforeAfter() {
         >
           <Image
             src="/BRAND_AMBASSADOR2.png"
-            alt="Profesional wanita memegang CV"
+            alt=""
             width={1254}
             height={1254}
             sizes="(min-width: 1280px) 680px, (min-width: 1024px) 600px, 86vw"
