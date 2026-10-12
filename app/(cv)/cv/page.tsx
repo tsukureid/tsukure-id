@@ -8,7 +8,7 @@ import { EngagementTracker } from '@/components/cv/engagement-tracker';
 import { UtmCapture } from '@/components/utm-capture';
 import { ScrollReveal } from '@/components/home/reveal-section';
 import {
-  CvBeforeAfter, CvBenefits, CvFaq, CvFooter, CvHero, CvPortfolioSection, CvTerms,
+  CvBeforeAfter, CvBenefits, CvFaq, CvFooter, CvHero, CvPortfolioSection, CvPrivacy, CvTerms,
   CvPricing, CvProblem, CvProcess, CvPromise, CvValue,
 } from '@/components/cv/sections';
 
@@ -58,6 +58,7 @@ export default async function CvLanding() {
       <ScrollReveal><CvPricing /></ScrollReveal>
       <ScrollReveal><CvFaq /></ScrollReveal>
       <ScrollReveal><CvTerms /></ScrollReveal>
+      <ScrollReveal><CvPrivacy /></ScrollReveal>
       <ScrollReveal><CvFooter /></ScrollReveal>
       <StickyCta />
       <UtmCapture />

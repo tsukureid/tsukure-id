@@ -21,6 +21,9 @@ export function buildCvWhatsappUrl(pkgId: CvPackageId): string {
 export const CV_TERMS: readonly string[] = [];
 export const CV_TERMS_ANCHOR = 'syarat-ketentuan';
 export const hasCvTerms = (terms: readonly string[] = CV_TERMS) => terms.length > 0;
+export const CV_PRIVACY: readonly string[] = [];
+export const CV_PRIVACY_ANCHOR = 'privasi';
+export const hasCvPrivacy = (privacy: readonly string[] = CV_PRIVACY) => privacy.length > 0;
 export type CvInfo = {
 	turnaround: string | null;
 	paymentMethods: string | null;

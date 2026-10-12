@@ -6,7 +6,7 @@ import { CvPortfolio } from './portfolio';
 import { PortfolioAnchorCta, WaCta } from './cta';
 import { ViewTracker } from './view-tracker';
 import { ScrollReveal } from '../home/reveal-section';
-import { CV_DATA_CHECKLIST, CV_INFO, CV_PACKAGES, CV_TERMS, CV_TERMS_ANCHOR, hasCvTerms, type CvInfo } from '@/lib/cv-config';
+import { CV_DATA_CHECKLIST, CV_INFO, CV_PACKAGES, CV_PRIVACY, CV_PRIVACY_ANCHOR, CV_TERMS, CV_TERMS_ANCHOR, hasCvPrivacy, hasCvTerms, type CvInfo } from '@/lib/cv-config';
 /** Format "Rp29.000" persis seperti brief (tanpa spasi). */
 const formatRupiah = (n: number) => `Rp${n.toLocaleString('id-ID')}`;
 import type { PortfolioView } from '@/lib/data';
@@ -543,7 +543,22 @@ export function CvTerms({ terms = CV_TERMS }: { terms?: readonly string[] }) {
   );
 }
 
-export function CvFooter({ terms = CV_TERMS }: { terms?: readonly string[] } = {}) {
+export function CvPrivacy({ privacy = CV_PRIVACY }: { privacy?: readonly string[] }) {
+  if (!hasCvPrivacy(privacy)) return null;
+
+  return (
+    <section id={CV_PRIVACY_ANCHOR} data-hide-sticky="" className="section bg-white pb-28 md:pb-0" aria-labelledby="privasi-h">
+      <div className="container-x max-w-3xl">
+        <h2 id="privasi-h" className="h2">Kebijakan Privasi</h2>
+        <ul className="mt-6 list-disc space-y-2 pl-6 text-brand-ink/75">
+          {privacy.map((item, index) => <li key={index}>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+export function CvFooter({ terms = CV_TERMS, privacy = CV_PRIVACY }: { terms?: readonly string[]; privacy?: readonly string[] } = {}) {
   return (
     <footer className="bg-brand-navy pb-24 text-white md:pb-0">
       <div className="container-x border-t border-white/10 py-8 text-sm">
@@ -551,6 +566,7 @@ export function CvFooter({ terms = CV_TERMS }: { terms?: readonly string[] } = {
         <p className="mt-2 max-w-sm text-white/70">Jasa pembuatan CV profesional untuk fresh graduate dan job seeker.</p>
         <p className="mt-4"><a href="#contoh-cv" className="text-white/80 underline underline-offset-4 hover:text-white">Contoh CV</a></p>
         {hasCvTerms(terms) && <p className="mt-2"><a href={`#${CV_TERMS_ANCHOR}`} className="text-white/80 underline underline-offset-4 hover:text-white">Syarat &amp; Ketentuan</a></p>}
+        {hasCvPrivacy(privacy) && <p className="mt-2"><a href={`#${CV_PRIVACY_ANCHOR}`} className="text-white/80 underline underline-offset-4 hover:text-white">Kebijakan Privasi</a></p>}
         <p className="mt-6 text-xs text-white/50">© {new Date().getFullYear()} TSUKURE.ID</p>
       </div>
     </footer>
