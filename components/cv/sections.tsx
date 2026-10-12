@@ -6,7 +6,7 @@ import { CvPortfolio } from './portfolio';
 import { PortfolioAnchorCta, WaCta } from './cta';
 import { ViewTracker } from './view-tracker';
 import { ScrollReveal } from '../home/reveal-section';
-import { CV_PACKAGES } from '@/lib/cv-config';
+import { CV_PACKAGES, CV_TERMS, CV_TERMS_ANCHOR, hasCvTerms } from '@/lib/cv-config';
 /** Format "Rp29.000" persis seperti brief (tanpa spasi). */
 const formatRupiah = (n: number) => `Rp${n.toLocaleString('id-ID')}`;
 import type { PortfolioView } from '@/lib/data';
@@ -415,8 +415,8 @@ export function CvPricing() {
                           <Check className="!h-4 !w-4 text-current" />
                           <span className="block">
                             {feature}
-                            {isGuarantee && plan.id !== 'photo' && plan.guaranteeNote && (
-                              <span className={`mt-0.5 block text-[0.72rem] ${tone.note}`}>{plan.guaranteeNote}</span>
+                            {isGuarantee && plan.id !== 'photo' && plan.guaranteeNote && hasCvTerms() && (
+                              <a href={`#${CV_TERMS_ANCHOR}`} className={`mt-0.5 block text-[0.72rem] underline underline-offset-2 ${tone.note}`}>{plan.guaranteeNote}</a>
                             )}
                           </span>
                         </li>
@@ -467,13 +467,29 @@ export function CvFaq() {
   );
 }
 
-export function CvFooter() {
+export function CvTerms({ terms = CV_TERMS }: { terms?: readonly string[] }) {
+  if (!hasCvTerms(terms)) return null;
+
+  return (
+    <section id={CV_TERMS_ANCHOR} data-hide-sticky="" className="section bg-white pb-28 md:pb-0" aria-labelledby="syarat-h">
+      <div className="container-x max-w-3xl">
+        <h2 id="syarat-h" className="h2">Syarat &amp; Ketentuan</h2>
+        <ul className="mt-6 list-disc space-y-2 pl-6 text-brand-ink/75">
+          {terms.map((term, index) => <li key={index}>{term}</li>)}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+export function CvFooter({ terms = CV_TERMS }: { terms?: readonly string[] } = {}) {
   return (
     <footer className="bg-brand-navy pb-24 text-white md:pb-0">
       <div className="container-x border-t border-white/10 py-8 text-sm">
         <p className="font-display text-lg font-extrabold">TSUKURE.ID</p>
         <p className="mt-2 max-w-sm text-white/70">Jasa pembuatan CV profesional untuk fresh graduate dan job seeker.</p>
         <p className="mt-4"><a href="#contoh-cv" className="text-white/80 underline underline-offset-4 hover:text-white">Contoh CV</a></p>
+        {hasCvTerms(terms) && <p className="mt-2"><a href={`#${CV_TERMS_ANCHOR}`} className="text-white/80 underline underline-offset-4 hover:text-white">Syarat &amp; Ketentuan</a></p>}
         <p className="mt-6 text-xs text-white/50">© {new Date().getFullYear()} TSUKURE.ID</p>
       </div>
     </footer>

@@ -7,7 +7,7 @@ import { StickyCta } from '@/components/cv/sticky-cta';
 import { UtmCapture } from '@/components/utm-capture';
 import { ScrollReveal } from '@/components/home/reveal-section';
 import {
-  CvBeforeAfter, CvBenefits, CvFaq, CvFooter, CvHero, CvPortfolioSection,
+  CvBeforeAfter, CvBenefits, CvFaq, CvFooter, CvHero, CvPortfolioSection, CvTerms,
   CvPricing, CvProblem, CvProcess, CvPromise, CvValue,
 } from '@/components/cv/sections';
 
@@ -55,6 +55,7 @@ export default async function CvLanding() {
       <ScrollReveal><CvProcess /></ScrollReveal>
       <ScrollReveal><CvPricing /></ScrollReveal>
       <ScrollReveal><CvFaq /></ScrollReveal>
+      <ScrollReveal><CvTerms /></ScrollReveal>
       <ScrollReveal><CvFooter /></ScrollReveal>
       <StickyCta />
       <UtmCapture />

@@ -9,6 +9,9 @@ const encoded = encodeURIComponent(CV_WHATSAPP_MESSAGE).replace(/\(/g, '%28').re
 export const CV_WHATSAPP_URL = `https://wa.me/${CV_WHATSAPP_NUMBER}?text=${encoded}`;
 
 export const CV_PRICE = { current: 29000, original: 45000 } as const;
+export const CV_TERMS: readonly string[] = [];
+export const CV_TERMS_ANCHOR = 'syarat-ketentuan';
+export const hasCvTerms = (terms: readonly string[] = CV_TERMS) => terms.length > 0;
 export const CV_PACKAGES = [
 	{
 		id: 'photo',
