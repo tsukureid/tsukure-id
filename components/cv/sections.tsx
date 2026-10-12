@@ -375,7 +375,7 @@ export function CvPricing({ info = CV_INFO }: { info?: CvInfo }) {
                 style={{ animationDelay: `${index * 140}ms` }}
               >
                 <article
-                  className={`relative z-10 mx-auto flex min-h-[470px] w-full max-w-[300px] flex-col rounded-[18px] px-5 pb-6 pt-7 shadow-soft transition-transform duration-300 ease-out hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none lg:max-w-none xl:mb-[42px] xl:min-h-[470px] ${tone.card}`}
+                  className={`relative z-10 mx-auto flex h-full min-h-[470px] w-full max-w-[300px] flex-col rounded-[18px] px-5 pb-6 pt-7 shadow-soft transition-transform duration-300 ease-out hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none lg:max-w-none xl:mb-[42px] xl:min-h-[470px] ${tone.card}`}
                 >
                   {/* Lingkaran kuning dekoratif (kartu Pas Foto & Bundle) */}
                   {isPhoto && (
