@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CvLanding() {
-  const portfolio = await getPortfolio();
+  const portfolio = await getPortfolio({ logForCv: true });
   const ld = [
     { '@context': 'https://schema.org', '@type': 'Organization', name: 'TSUKURE.ID', url: siteUrl('/') },
     {

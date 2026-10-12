@@ -41,11 +41,21 @@ export async function getService(slug: string): Promise<ServiceView | null> {
   return (await getServices()).find((s) => s.slug === slug) ?? null;
 }
 
-export async function getPortfolio(): Promise<PortfolioView[]> {
-  return safe(
-    () => getDb().select().from(schema.portfolios).where(eq(schema.portfolios.isPublished, true)).orderBy(desc(schema.portfolios.createdAt)),
-    [],
-  );
+export async function getPortfolio({ logForCv = false }: { logForCv?: boolean } = {}): Promise<PortfolioView[]> {
+  if (!isDbConfigured()) {
+    if (logForCv) console.warn('[cv] portfolio: DATABASE_URL belum dikonfigurasi');
+    return [];
+  }
+
+  try {
+    const rows = await getDb().select().from(schema.portfolios)
+      .where(eq(schema.portfolios.isPublished, true)).orderBy(desc(schema.portfolios.createdAt));
+    if (logForCv && rows.length === 0) console.info('[cv] portfolio: tidak ada item dipublikasikan');
+    return rows;
+  } catch (e) {
+    console.error(logForCv ? '[cv] portfolio: query failed' : '[data] query failed', e instanceof Error ? e.message : e);
+    return [];
+  }
 }
 
 export async function getPortfolioItem(slug: string): Promise<PortfolioView | null> {
