@@ -53,13 +53,18 @@ describe('getPortfolio for /cv', () => {
     expect(getDb).not.toHaveBeenCalled();
   });
 
-  it('logs a query error with portfolio context', async () => {
+  it('warns and keeps the CV available when the portfolio query fails', async () => {
     isDbConfigured.mockReturnValue(true);
-    query.orderBy.mockRejectedValue(new Error('database unavailable'));
+    const error = new Error('Failed query', { cause: new Error('database unavailable') });
+    query.orderBy.mockRejectedValue(error);
 
     await expect(getPortfolio({ logForCv: true })).resolves.toEqual([]);
 
-    expect(console.error).toHaveBeenCalledWith('[cv] portfolio: query failed', 'database unavailable');
+    expect(console.warn).toHaveBeenCalledWith(
+      '[cv] portfolio: query failed; rendering without portfolio items',
+      'database unavailable',
+    );
+    expect(console.error).not.toHaveBeenCalled();
   });
 
   it('logs when the published portfolio query succeeds but returns no items', async () => {

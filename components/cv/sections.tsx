@@ -334,7 +334,7 @@ export function CvPricing({ info = CV_INFO }: { info?: CvInfo }) {
           Pilih Paket Sesuai Kebutuhanmu
         </h2>
 
-        <div className="mt-8 grid items-stretch gap-3 lg:grid-cols-3 xl:mt-10 xl:gap-2">
+        <div className="mx-auto mt-8 grid max-w-[1100px] items-stretch gap-4 lg:grid-cols-3 xl:mt-10 xl:gap-5">
           {CV_PACKAGES.map((plan, index) => {
             const isPhoto = plan.id === 'photo';
             const isCvOnly = plan.id === 'cv-only';

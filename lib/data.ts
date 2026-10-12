@@ -53,7 +53,12 @@ export async function getPortfolio({ logForCv = false }: { logForCv?: boolean } 
     if (logForCv && rows.length === 0) console.info('[cv] portfolio: tidak ada item dipublikasikan');
     return rows;
   } catch (e) {
-    console.error(logForCv ? '[cv] portfolio: query failed' : '[data] query failed', e instanceof Error ? e.message : e);
+    if (logForCv) {
+      const cause = e instanceof Error && e.cause instanceof Error ? e.cause : e;
+      console.warn('[cv] portfolio: query failed; rendering without portfolio items', cause instanceof Error ? cause.message : cause);
+    } else {
+      console.error('[data] query failed', e instanceof Error ? e.message : e);
+    }
     return [];
   }
 }
