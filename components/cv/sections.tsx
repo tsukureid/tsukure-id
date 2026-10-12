@@ -6,7 +6,7 @@ import { CvPortfolio } from './portfolio';
 import { PortfolioAnchorCta, WaCta } from './cta';
 import { ViewTracker } from './view-tracker';
 import { ScrollReveal } from '../home/reveal-section';
-import { CV_PACKAGES, CV_TERMS, CV_TERMS_ANCHOR, hasCvTerms } from '@/lib/cv-config';
+import { CV_DATA_CHECKLIST, CV_INFO, CV_PACKAGES, CV_TERMS, CV_TERMS_ANCHOR, hasCvTerms, type CvInfo } from '@/lib/cv-config';
 /** Format "Rp29.000" persis seperti brief (tanpa spasi). */
 const formatRupiah = (n: number) => `Rp${n.toLocaleString('id-ID')}`;
 import type { PortfolioView } from '@/lib/data';
@@ -273,7 +273,13 @@ export function CvBenefits() {
   );
 }
 
-export function CvProcess() {
+export function CvProcess({
+  info = CV_INFO,
+  checklist = CV_DATA_CHECKLIST,
+}: {
+  info?: CvInfo;
+  checklist?: readonly string[];
+}) {
   const steps = [
     ['Kirimin Dokumen', ['Kirimin dokumen yang diperlukan untuk CV, seperti foto dan data diri, ke WhatsApp Admin.']],
     ['Terima Invoice Resmi', ['Admin akan membuat invoice resmi sebelum pembuatan draft pertama CV.', 'Setelah itu CV mulai dikerjakan. Kamu bisa mengajukan revisi sesuai kebutuhan sampai CV disetujui.']],
@@ -293,6 +299,12 @@ export function CvProcess() {
               <span className="grid h-11 w-11 place-items-center rounded-full bg-tsukure-yellow font-display text-lg font-extrabold text-brand-ink" aria-hidden>{i + 1}</span>
               <h3 className="mt-4 text-xl font-bold"><span className="sr-only">Langkah {i + 1}: </span>{t}</h3>
               {d.map((p) => <p key={p} className="mt-2 text-[15px] leading-relaxed text-brand-ink/75">{p}</p>)}
+              {i === 0 && checklist.length > 0 && (
+                <ul className="mt-3 list-disc space-y-1 pl-5 text-[15px] leading-relaxed text-brand-ink/75">
+                  {checklist.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+              )}
+              {i === 1 && info.turnaround && <p className="mt-2 text-[15px] leading-relaxed text-brand-ink/75">{info.turnaround}</p>}
             </li>
           ))}
         </ol>
@@ -301,7 +313,7 @@ export function CvProcess() {
   );
 }
 
-export function CvPricing() {
+export function CvPricing({ info = CV_INFO }: { info?: CvInfo }) {
   return (
     <ViewTracker
       event="pricing_view"
@@ -399,6 +411,9 @@ export function CvPricing() {
                     'mt-6 text-[0.95rem] font-extrabold',
                     isBundle ? 'text-white' : 'text-brand-navy',
                   ].join(' ')}>Yang kamu dapat :</h4>
+                  {isBundle && info.bundleDetail && (
+                    <p className="mt-2 text-sm text-white/85">{info.bundleDetail}</p>
+                  )}
 
                   <ul className={[
                     'mt-3 space-y-2.5',
@@ -444,7 +459,13 @@ export function CvPricing() {
   );
 }
 
-export function CvFaq() {
+export function CvFaq({
+  info = CV_INFO,
+  checklist = CV_DATA_CHECKLIST,
+}: {
+  info?: CvInfo;
+  checklist?: readonly string[];
+} = {}) {
   const items: Array<[string, string]> = [
     ['Apakah bisa request desain?', 'Kamu bisa sampaikan kebutuhan desain lewat WhatsApp. Admin akan memberi tahu apa yang bisa dikerjakan.'],
     ['Apakah bisa untuk fresh graduate?', 'Bisa. Layanan ini dibuat untuk fresh graduate dan job seeker, termasuk yang belum punya pengalaman kerja.'],
@@ -458,11 +479,46 @@ export function CvFaq() {
     ['Bagaimana garansi alamat kerja?', 'Revisi alamat kerja gratis selamanya. Garansi ini khusus untuk perubahan alamat kerja; untuk perubahan lain, tanyakan ke admin lewat WhatsApp.'],
     ['Bagaimana cara order?', 'Klik “Buat CV Sekarang”, lalu kirim dokumen yang diperlukan ke WhatsApp Admin.'],
   ];
+  const faqItems = items.map(([question, answer], index) => {
+    if (question === 'Apa saja data yang harus dikirim?' && checklist.length > 0) {
+      return {
+        id: String(index),
+        question,
+        answer: (
+          <>
+            <p>{answer}</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              {checklist.map((item) => <li key={item}>{item}</li>)}
+            </ul>
+          </>
+        ),
+      };
+    }
+    if (question === 'Bagaimana pembayaran?') {
+      const paymentDetails = [info.paymentMethods, info.paymentTiming].filter((detail): detail is string => detail !== null);
+      if (paymentDetails.length > 0) {
+        return {
+          id: String(index),
+          question,
+          answer: (
+            <>
+              <p>{answer}</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                {paymentDetails.map((detail) => <li key={detail}>{detail}</li>)}
+              </ul>
+            </>
+          ),
+        };
+      }
+    }
+    return { id: String(index), question, answer };
+  });
+  if (info.turnaround) faqItems.push({ id: String(faqItems.length), question: 'Berapa lama pengerjaannya?', answer: info.turnaround });
   return (
     <section className="section" aria-labelledby="faq-h">
       <div className="container-x max-w-3xl">
         <h2 id="faq-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Pertanyaan yang Sering Muncul</h2>
-        <div style={{ animationDelay: '200ms' }} className="mt-8 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade"><FAQAccordion items={items.map(([question, answer], i) => ({ id: String(i), question, answer }))} /></div>
+        <div style={{ animationDelay: '200ms' }} className="mt-8 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade"><FAQAccordion items={faqItems} /></div>
       </div>
     </section>
   );
