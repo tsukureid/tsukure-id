@@ -470,27 +470,28 @@ export function CvFaq({
   const items: Array<[string, string]> = [
     ['Apakah bisa request desain?', 'Kamu bisa sampaikan kebutuhan desain lewat WhatsApp. Admin akan memberi tahu apa yang bisa dikerjakan.'],
     ['Apakah bisa untuk fresh graduate?', 'Bisa. Layanan ini dibuat untuk fresh graduate dan job seeker, termasuk yang belum punya pengalaman kerja.'],
-    ['Apa saja data yang harus dikirim?', 'Dokumen yang diperlukan untuk CV, seperti foto dan data diri. Kamu kirim lewat WhatsApp Admin.'],
+    ['Bagaimana cara order dan apa saja data yang harus dikirim?', 'Dokumen yang diperlukan untuk CV, seperti foto dan data diri. Kamu kirim lewat WhatsApp Admin.'],
     ['Bagaimana proses revisi?', 'Setelah draft pertama jadi, kamu bisa mengajukan revisi sesuai kebutuhan sampai CV disetujui.'],
     ['Apakah ada invoice?', 'Ada. Admin membuat invoice resmi sebelum draft pertama CV dibuat.'],
-    ['Berapa harganya?', `Tersedia paket Edit Pas Foto ${formatRupiah(CV_PACKAGES[0].current)}, CV Only ${formatRupiah(CV_PACKAGES[1].current)}, dan Bundle ${formatRupiah(CV_PACKAGES[2].current)}.`],
     ['Bagaimana pembayaran?', 'Pembayaran mengikuti invoice resmi dari admin. Detail cara bayar diberikan admin lewat WhatsApp.'],
     ['File akhirnya apa saja?', 'Softfile dan file siap print.'],
     ['Apa itu file siap print?', 'File CV yang disiapkan supaya bisa langsung dicetak.'],
     ['Bagaimana garansi alamat kerja?', 'Revisi alamat kerja gratis selamanya. Garansi ini khusus untuk perubahan alamat kerja; untuk perubahan lain, tanyakan ke admin lewat WhatsApp.'],
-    ['Bagaimana cara order?', 'Klik “Buat CV Sekarang”, lalu kirim dokumen yang diperlukan ke WhatsApp Admin.'],
   ];
   const faqItems = items.map(([question, answer], index) => {
-    if (question === 'Apa saja data yang harus dikirim?' && checklist.length > 0) {
+    if (question === 'Bagaimana cara order dan apa saja data yang harus dikirim?') {
       return {
         id: String(index),
         question,
         answer: (
           <>
             <p>{answer}</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              {checklist.map((item) => <li key={item}>{item}</li>)}
-            </ul>
+            {checklist.length > 0 && (
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                {checklist.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            )}
+            <p className="mt-2">Klik “Buat CV Sekarang”, lalu kirim dokumen yang diperlukan ke WhatsApp Admin.</p>
           </>
         ),
       };
