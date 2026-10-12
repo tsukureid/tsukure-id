@@ -4,10 +4,11 @@ import { siteUrl } from '@/lib/utils';
 import { jsonLd } from '@/lib/seo';
 import { CV_PACKAGES } from '@/lib/cv-config';
 import { StickyCta } from '@/components/cv/sticky-cta';
+import { EngagementTracker } from '@/components/cv/engagement-tracker';
 import { UtmCapture } from '@/components/utm-capture';
 import { ScrollReveal } from '@/components/home/reveal-section';
 import {
-  CvBeforeAfter, CvBenefits, CvFaq, CvFooter, CvHero, CvPortfolioSection,
+  CvBeforeAfter, CvBenefits, CvFaq, CvFooter, CvHero, CvPortfolioSection, CvPrivacy, CvTerms,
   CvPricing, CvProblem, CvProcess, CvPromise, CvValue,
 } from '@/components/cv/sections';
 
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CvLanding() {
-  const portfolio = await getPortfolio();
+  const portfolio = await getPortfolio({ logForCv: true });
   const ld = [
     { '@context': 'https://schema.org', '@type': 'Organization', name: 'TSUKURE.ID', url: siteUrl('/') },
     {
@@ -45,6 +46,7 @@ export default async function CvLanding() {
   ];
   return (
     <>
+      <EngagementTracker />
       <ScrollReveal><CvHero /></ScrollReveal>
       <ScrollReveal><CvProblem /></ScrollReveal>
       <ScrollReveal><CvPromise /></ScrollReveal>
@@ -55,6 +57,8 @@ export default async function CvLanding() {
       <ScrollReveal><CvProcess /></ScrollReveal>
       <ScrollReveal><CvPricing /></ScrollReveal>
       <ScrollReveal><CvFaq /></ScrollReveal>
+      <ScrollReveal><CvTerms /></ScrollReveal>
+      <ScrollReveal><CvPrivacy /></ScrollReveal>
       <ScrollReveal><CvFooter /></ScrollReveal>
       <StickyCta />
       <UtmCapture />

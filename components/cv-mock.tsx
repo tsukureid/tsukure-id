@@ -5,7 +5,7 @@ export function CvMock({ variant = 'clean', className, accent = 'gold' }: { vari
   const accentBg = accent === 'yellow' ? 'bg-tsukure-yellow' : 'bg-brand-gold';
   if (variant === 'messy') {
     return (
-      <div aria-hidden className={cn('aspect-[3/4] w-full overflow-hidden rounded-lg border border-brand-navy/15 bg-white p-4 text-[7px] leading-tight', className)}>
+      <div aria-hidden className={cn('aspect-[3/4] w-full overflow-hidden rounded-lg border border-brand-navy/15 bg-white px-4 pb-4 pt-10 text-[7px] leading-tight', className)}>
         <div className="text-[11px] font-bold text-red-700" style={{ fontFamily: 'serif' }}>NAMA LENGKAP</div>
         <div className="mt-1 text-[8px] italic text-green-800">alamat, telepon, email, linkedin, instagram, tiktok</div>
         <div className="mt-2 bg-yellow-200 px-1 font-bold">TENTANG SAYA</div>
