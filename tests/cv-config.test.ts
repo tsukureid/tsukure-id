@@ -1,12 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { buildCvWhatsappUrl, CV_PRICE, CV_WHATSAPP_URL, CV_WHATSAPP_MESSAGE, CV_PACKAGES } from '@/lib/cv-config';
+import { buildCvWhatsappUrl, CV_WHATSAPP_URL, CV_WHATSAPP_MESSAGE, CV_PACKAGES } from '@/lib/cv-config';
 
 describe('cv-config', () => {
   it('URL WhatsApp persis sesuai brief', () => {
     expect(CV_WHATSAPP_URL).toBe('https://wa.me/6289651450855?text=%28LP-CV%29%20Hi%20Admin%2C%20Aku%20ingin%20bikin%20CV%20kerja%20nih.');
   });
-  it('harga sesuai brief', () => {
-    expect(CV_PRICE).toEqual({ current: 29000, original: 45000 });
+  it('mengunci harga dan identitas tiga paket CV', () => {
+    expect(CV_PACKAGES.map(({ id, name, current, original }) => ({ id, name, current, original }))).toEqual([
+      { id: 'photo', name: 'Edit Pas Foto', current: 20000, original: 30000 },
+      { id: 'cv-only', name: 'Paket CV Only', current: 35000, original: 50000 },
+      { id: 'bundle', name: 'Paket Bundle', current: 49000, original: 65000 },
+    ]);
   });
   it.each(CV_PACKAGES)('URL WhatsApp untuk $id menyebut nama paket', (pkg) => {
     const url = buildCvWhatsappUrl(pkg.id);
