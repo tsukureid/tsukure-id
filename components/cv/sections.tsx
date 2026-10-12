@@ -100,9 +100,9 @@ export function CvHero() {
           style={{ animationDelay: '520ms' }}
           className="relative z-10 mt-7 px-1.5 pb-8 text-[0.95rem] min-[430px]:text-[1.05rem] sm:text-[1.15rem] font-medium leading-[1.6] text-brand-navy/70 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade lg:col-start-1 lg:row-start-4 lg:mt-10 lg:px-1 lg:pb-0 lg:text-[0.95rem] xl:text-[1.15rem]"
         >
-          *Tenang aja, CV-mu bisa terus disesuaikan GRATIS
-          <br />
-          sampai kamu dapat kerja.
+          Tenang aja, kamu bisa revisi sampai CV-mu disetujui,
+          <br className="hidden sm:block" />
+          dan revisi alamat kerja GRATIS selamanya.
         </p>
       </div>
     </section>
