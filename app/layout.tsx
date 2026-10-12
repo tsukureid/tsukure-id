@@ -4,6 +4,7 @@ import '@fontsource-variable/plus-jakarta-sans';
 import './globals.css';
 import { DEFAULT_DESC } from '@/lib/seo';
 import { siteUrl } from '@/lib/utils';
+import { AnalyticsScript } from '@/components/analytics-script';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
@@ -16,6 +17,7 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1, them
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id">
+      <head><AnalyticsScript /></head>
       <body>{children}</body>
     </html>
   );
