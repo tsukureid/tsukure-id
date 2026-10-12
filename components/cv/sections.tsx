@@ -49,7 +49,7 @@ export function CvHero() {
           <h1
             id="hero-h"
             style={{ animationDelay: '180ms' }}
-            className="whitespace-nowrap text-[2rem] font-extrabold leading-[1.3] tracking-[-0.045em] text-brand-navy motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal min-[380px]:text-[2.2rem] min-[430px]:text-[2.4rem] sm:text-[3rem] lg:text-[2.6rem] lg:leading-[1.32] xl:text-[3.2rem]"
+            className="whitespace-normal text-[2rem] font-extrabold leading-[1.3] tracking-[-0.045em] text-brand-navy motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal min-[380px]:text-[2.2rem] min-[430px]:text-[2.4rem] sm:whitespace-nowrap sm:text-[3rem] lg:text-[2.6rem] lg:leading-[1.32] xl:text-[3.2rem]"
           >
             Masa Depan{' '}
             <br className="lg:hidden" />
