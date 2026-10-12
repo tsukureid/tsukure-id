@@ -427,6 +427,7 @@ export function CvPricing() {
                   <div className="mt-auto flex justify-center pt-7">
                     <WaCta
                       place={`pricing-${plan.id}`}
+                      pkg={plan.id}
                       className={`!w-auto !min-w-[140px] !rounded-full !border-2 !px-5 !py-2 !text-[0.9rem] !font-bold !shadow-none ${tone.btn}`}
                     >
                       Mau Paket Ini

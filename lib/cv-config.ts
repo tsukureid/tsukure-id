@@ -8,6 +8,16 @@ export const CV_WHATSAPP_MESSAGE = '(LP-CV) Hi Admin, Aku ingin bikin CV kerja n
 const encoded = encodeURIComponent(CV_WHATSAPP_MESSAGE).replace(/\(/g, '%28').replace(/\)/g, '%29');
 export const CV_WHATSAPP_URL = `https://wa.me/${CV_WHATSAPP_NUMBER}?text=${encoded}`;
 
+export type CvPackageId = (typeof CV_PACKAGES)[number]['id'];
+
+export function buildCvWhatsappUrl(pkgId: CvPackageId): string {
+	const pkg = CV_PACKAGES.find((plan) => plan.id === pkgId);
+	if (!pkg) throw new Error(`Unknown CV package: ${pkgId}`);
+	const message = `${CV_WHATSAPP_MESSAGE} Aku pilih ${pkg.name}.`;
+	const packageMessage = encodeURIComponent(message).replace(/\(/g, '%28').replace(/\)/g, '%29');
+	return `https://wa.me/${CV_WHATSAPP_NUMBER}?text=${packageMessage}`;
+}
+
 export const CV_PRICE = { current: 29000, original: 45000 } as const;
 export const CV_TERMS: readonly string[] = [];
 export const CV_TERMS_ANCHOR = 'syarat-ketentuan';
