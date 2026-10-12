@@ -31,7 +31,7 @@ const TsukureLogo = ({ className = '' }: { className?: string }) => (
 
 export function CvHero() {
   return (
-    <section className="relative overflow-hidden bg-white" aria-labelledby="hero-h">
+    <section data-section="hero" className="relative overflow-hidden bg-white" aria-labelledby="hero-h">
       {/* Lingkaran biru muda: kepotong di pojok kanan atas (mobile & desktop) */}
       <div
         className="pointer-events-none absolute -right-[90px] -top-[90px] h-[270px] w-[270px] rounded-full animate-float bg-[#dceeff] motion-reduce:animate-none lg:-right-[150px] lg:-top-[165px] lg:h-[380px] lg:w-[380px]"
@@ -112,7 +112,7 @@ export function CvHero() {
 export function CvProblem() {
   const pains = ['CV-ku kok kelihatan biasa banget, ya?', 'Pengalaman kerja belum ada. CV-ku diisi apa?', 'Fresh graduate, emang CV harus diisi apa?', 'CV-ku yang lama berantakan banget.', 'Takut CV-ku nggak dilirik recruiter.'];
   return (
-    <section className="section bg-[#eef6ff]" aria-labelledby="problem-h">
+    <section data-section="problem" className="section bg-[#eef6ff]" aria-labelledby="problem-h">
       <div className="container-x grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div>
           <h2 id="problem-h" className="h2 max-w-lg leading-[1.05]">Cari Lowongan Aja Udah Bikin Pusing. Jangan Ditambah Masalah Bikin CV.</h2>
@@ -134,7 +134,7 @@ export function CvProblem() {
 
 export function CvPromise() {
   return (
-    <section className="section bg-brand-navy" aria-labelledby="promise-h">
+    <section data-section="promise" className="section bg-brand-navy" aria-labelledby="promise-h">
       <div className="container-x max-w-4xl">
         <span
           className="block h-1.5 w-12 origin-left rounded bg-tsukure-yellow motion-safe:group-data-[reveal-state=visible]/reveal:animate-fade-in-up"
@@ -156,7 +156,7 @@ export function CvValue() {
     ['Tampil lebih meyakinkan', 'CV dibuat untuk menampilkan potensi terbaikmu sejak pertama kali dilihat.'],
   ];
   return (
-    <section className="section bg-[#f3f3f3]" aria-labelledby="value-h">
+    <section data-section="value" className="section bg-[#f3f3f3]" aria-labelledby="value-h">
       <div className="container-x max-w-6xl">
         <h2 id="value-h" style={{ animationDelay: '100ms' }} className="max-w-4xl font-display text-3xl font-extrabold leading-[1.05] tracking-[-0.04em] text-brand-navy motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal sm:text-5xl">Nggak Perlu Pusing Bikin CV. Kami Bantu Bikin Kamu Lebih Siap Melamar.</h2>
         <p style={{ animationDelay: '220ms' }} className="mt-5 max-w-4xl text-base leading-relaxed text-brand-ink/75 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade sm:text-lg">Dari isi sampai tampilannya, kami bantu bikin CV yang lebih rapi, profesional, dan mampu menampilkan potensi terbaikmu.</p>
@@ -181,7 +181,7 @@ export function CvValue() {
 
 export function CvPortfolioSection({ items }: { items: PortfolioView[] }) {
   return (
-    <section id="contoh-cv" className="section bg-brand-light" aria-labelledby="contoh-h">
+    <section id="contoh-cv" data-section="contoh-cv" className="section bg-brand-light" aria-labelledby="contoh-h">
       <div className="container-x">
         <h2 id="contoh-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Contoh CV yang Kami Buat</h2>
         <div className="mt-8">
@@ -200,7 +200,7 @@ export function CvPortfolioSection({ items }: { items: PortfolioView[] }) {
 
 export function CvBeforeAfter() {
   return (
-    <section className="section pb-0" aria-labelledby="ba-h">
+    <section data-section="before-after" className="section pb-0" aria-labelledby="ba-h">
       <div className="container-x grid items-end gap-10 lg:grid-cols-2">
         <div
           style={{ animationDelay: '100ms' }}
@@ -243,7 +243,7 @@ export function CvBeforeAfter() {
 export function CvBenefits() {
   const support = ['Dibantu menyiapkan CV', 'Struktur lebih rapi', 'Tampilan profesional', 'Cocok untuk fresh graduate', 'Siap digunakan untuk melamar'];
   return (
-    <section className="section bg-[#f6f8fb]" aria-labelledby="benefit-h">
+    <section data-section="benefits" className="section bg-[#f6f8fb]" aria-labelledby="benefit-h">
       <div className="container-x">
         <h2 id="benefit-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Bukan Cuma Dibikinin CV.</h2>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
@@ -286,7 +286,7 @@ export function CvProcess({
     ['CV Siap Digunakan', ['Jika CV sudah disetujui, file softfile dan file siap print akan dikirimkan untuk siap digunakan.']],
   ] as const;
   return (
-    <section className="section" aria-labelledby="proses-h">
+    <section data-section="process" className="section" aria-labelledby="proses-h">
       <div className="container-x">
         <h2 id="proses-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Pesan CV Tanpa Ribet.</h2>
         <ol className="mt-10 grid gap-6 md:grid-cols-3">
@@ -319,6 +319,7 @@ export function CvPricing({ info = CV_INFO }: { info?: CvInfo }) {
     <ViewTracker
       event="pricing_view"
       id="harga"
+      dataSection="pricing"
       className="relative overflow-hidden bg-[#dceeff] pb-10 pt-10 sm:pt-12 lg:pt-14 xl:pb-0"
       hideSticky
     >
@@ -517,7 +518,7 @@ export function CvFaq({
   });
   if (info.turnaround) faqItems.push({ id: String(faqItems.length), question: 'Berapa lama pengerjaannya?', answer: info.turnaround });
   return (
-    <section className="section" aria-labelledby="faq-h">
+    <section data-section="faq" className="section" aria-labelledby="faq-h">
       <div className="container-x max-w-3xl">
         <h2 id="faq-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Pertanyaan yang Sering Muncul</h2>
         <div style={{ animationDelay: '200ms' }} className="mt-8 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade"><FAQAccordion items={faqItems} /></div>

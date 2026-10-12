@@ -4,6 +4,7 @@ import { siteUrl } from '@/lib/utils';
 import { jsonLd } from '@/lib/seo';
 import { CV_PACKAGES } from '@/lib/cv-config';
 import { StickyCta } from '@/components/cv/sticky-cta';
+import { EngagementTracker } from '@/components/cv/engagement-tracker';
 import { UtmCapture } from '@/components/utm-capture';
 import { ScrollReveal } from '@/components/home/reveal-section';
 import {
@@ -45,6 +46,7 @@ export default async function CvLanding() {
   ];
   return (
     <>
+      <EngagementTracker />
       <ScrollReveal><CvHero /></ScrollReveal>
       <ScrollReveal><CvProblem /></ScrollReveal>
       <ScrollReveal><CvPromise /></ScrollReveal>
