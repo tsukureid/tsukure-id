@@ -308,6 +308,7 @@ export function CvProcess({
             </li>
           ))}
         </ol>
+        <WaCta place="process" className="mt-8" />
       </div>
     </section>
   );
@@ -519,6 +520,7 @@ export function CvFaq({
       <div className="container-x max-w-3xl">
         <h2 id="faq-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Pertanyaan yang Sering Muncul</h2>
         <div style={{ animationDelay: '200ms' }} className="mt-8 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade"><FAQAccordion items={faqItems} /></div>
+        <WaCta place="faq" className="mt-8" />
       </div>
     </section>
   );
