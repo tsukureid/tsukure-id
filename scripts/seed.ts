@@ -1,4 +1,5 @@
 /* Seed awal: layanan, FAQ, dan akun admin (dari ADMIN_EMAIL / ADMIN_PASSWORD). Aman dijalankan ulang. */
+import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/mysql2';
 import mysql from 'mysql2/promise';
 import bcrypt from 'bcryptjs';
@@ -15,12 +16,16 @@ async function main() {
 
   const [{ n: serviceCount } = { n: 0 }] = await db.select({ n: count() }).from(schema.services);
   if (serviceCount === 0) {
-    for (const s of SERVICE_SEEDS) await db.insert(schema.services).values({ id: crypto.randomUUID(), ...s, startingPrice: null });
+    await Promise.all(
+      SERVICE_SEEDS.map((s) => db.insert(schema.services).values({ id: crypto.randomUUID(), ...s, startingPrice: null })),
+    );
     console.log(`Layanan: ${SERVICE_SEEDS.length} ditambahkan (harga belum diisi, atur lewat admin)`);
   }
   const [{ n: faqCount } = { n: 0 }] = await db.select({ n: count() }).from(schema.faqs);
   if (faqCount === 0) {
-    for (const [i, f] of FAQ_SEEDS.entries()) await db.insert(schema.faqs).values({ id: crypto.randomUUID(), ...f, sortOrder: i });
+    await Promise.all(
+      FAQ_SEEDS.map((f, i) => db.insert(schema.faqs).values({ id: crypto.randomUUID(), ...f, sortOrder: i })),
+    );
     console.log(`FAQ: ${FAQ_SEEDS.length} ditambahkan`);
   }
   const email = process.env.ADMIN_EMAIL?.toLowerCase();

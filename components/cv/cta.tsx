@@ -1,6 +1,6 @@
 'use client';
 import { track } from '@/lib/analytics';
-import { CV_PORTFOLIO_ANCHOR, CV_WHATSAPP_URL } from '@/lib/cv-config';
+import { buildCvWhatsappUrl, CV_PORTFOLIO_ANCHOR, CV_WHATSAPP_URL, type CvPackageId } from '@/lib/cv-config';
 import { cn } from '@/lib/utils';
 
 function utmParams(): Record<string, string> {
@@ -28,11 +28,11 @@ function CtaContent({ children }: { children: React.ReactNode }) {
 }
 
 /** Semua tombol "Buat CV Sekarang" memakai satu URL WhatsApp dari lib/cv-config. UTM hanya dikirim ke analytics, URL WhatsApp tidak diubah. */
-export function WaCta({ place, onDark = false, className, children = 'Buat CV Sekarang' }: { place: string; onDark?: boolean; className?: string; children?: React.ReactNode }) {
+export function WaCta({ place, pkg, onDark = false, className, children = 'Buat CV Sekarang' }: { place: string; pkg?: CvPackageId; onDark?: boolean; className?: string; children?: React.ReactNode }) {
   return (
     <a
-      href={CV_WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
-      onClick={() => { track('whatsapp_click', { place, ...utmParams() }); if (place === 'hero') track('hero_cta_click', utmParams()); }}
+      href={pkg ? buildCvWhatsappUrl(pkg) : CV_WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
+      onClick={() => { track('whatsapp_click', { place, ...(pkg ? { package: pkg } : {}), ...utmParams() }); if (place === 'hero') track('hero_cta_click', utmParams()); }}
       className={cn(BASE, 'bg-tsukure-yellow text-brand-ink shadow-soft', onDark ? 'hover:bg-white hover:text-brand-navy' : 'hover:bg-brand-navy hover:text-white', className)}
     >
       <CtaContent>{children}</CtaContent>

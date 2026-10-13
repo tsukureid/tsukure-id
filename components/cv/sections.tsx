@@ -6,7 +6,7 @@ import { CvPortfolio } from './portfolio';
 import { PortfolioAnchorCta, WaCta } from './cta';
 import { ViewTracker } from './view-tracker';
 import { ScrollReveal } from '../home/reveal-section';
-import { CV_PACKAGES } from '@/lib/cv-config';
+import { CV_DATA_CHECKLIST, CV_INFO, CV_PACKAGES, CV_PRIVACY, CV_PRIVACY_ANCHOR, CV_TERMS, CV_TERMS_ANCHOR, hasCvPrivacy, hasCvTerms, type CvInfo } from '@/lib/cv-config';
 /** Format "Rp29.000" persis seperti brief (tanpa spasi). */
 const formatRupiah = (n: number) => `Rp${n.toLocaleString('id-ID')}`;
 import type { PortfolioView } from '@/lib/data';
@@ -31,7 +31,7 @@ const TsukureLogo = ({ className = '' }: { className?: string }) => (
 
 export function CvHero() {
   return (
-    <section className="relative overflow-hidden bg-white" aria-labelledby="hero-h">
+    <section data-section="hero" className="relative overflow-hidden bg-white" aria-labelledby="hero-h">
       {/* Lingkaran biru muda: kepotong di pojok kanan atas (mobile & desktop) */}
       <div
         className="pointer-events-none absolute -right-[90px] -top-[90px] h-[270px] w-[270px] rounded-full animate-float bg-[#dceeff] motion-reduce:animate-none lg:-right-[150px] lg:-top-[165px] lg:h-[380px] lg:w-[380px]"
@@ -49,7 +49,7 @@ export function CvHero() {
           <h1
             id="hero-h"
             style={{ animationDelay: '180ms' }}
-            className="whitespace-nowrap text-[2rem] font-extrabold leading-[1.3] tracking-[-0.045em] text-brand-navy motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal min-[380px]:text-[2.2rem] min-[430px]:text-[2.4rem] sm:text-[3rem] lg:text-[2.6rem] lg:leading-[1.32] xl:text-[3.2rem]"
+            className="whitespace-normal text-[2rem] font-extrabold leading-[1.3] tracking-[-0.045em] text-brand-navy motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal min-[380px]:text-[2.2rem] min-[430px]:text-[2.4rem] sm:whitespace-nowrap sm:text-[3rem] lg:text-[2.6rem] lg:leading-[1.32] xl:text-[3.2rem]"
           >
             Masa Depan{' '}
             <br className="lg:hidden" />
@@ -100,9 +100,9 @@ export function CvHero() {
           style={{ animationDelay: '520ms' }}
           className="relative z-10 mt-7 px-1.5 pb-8 text-[0.95rem] min-[430px]:text-[1.05rem] sm:text-[1.15rem] font-medium leading-[1.6] text-brand-navy/70 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade lg:col-start-1 lg:row-start-4 lg:mt-10 lg:px-1 lg:pb-0 lg:text-[0.95rem] xl:text-[1.15rem]"
         >
-          *Tenang aja, CV-mu bisa terus disesuaikan GRATIS
-          <br />
-          sampai kamu dapat kerja.
+          Tenang aja, kamu bisa revisi sampai CV-mu disetujui,
+          <br className="hidden sm:block" />
+          dan revisi alamat kerja GRATIS selamanya.
         </p>
       </div>
     </section>
@@ -112,7 +112,7 @@ export function CvHero() {
 export function CvProblem() {
   const pains = ['CV-ku kok kelihatan biasa banget, ya?', 'Pengalaman kerja belum ada. CV-ku diisi apa?', 'Fresh graduate, emang CV harus diisi apa?', 'CV-ku yang lama berantakan banget.', 'Takut CV-ku nggak dilirik recruiter.'];
   return (
-    <section className="section bg-[#eef6ff]" aria-labelledby="problem-h">
+    <section data-section="problem" className="section bg-[#eef6ff]" aria-labelledby="problem-h">
       <div className="container-x grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div>
           <h2 id="problem-h" className="h2 max-w-lg leading-[1.05]">Cari Lowongan Aja Udah Bikin Pusing. Jangan Ditambah Masalah Bikin CV.</h2>
@@ -134,7 +134,7 @@ export function CvProblem() {
 
 export function CvPromise() {
   return (
-    <section className="section bg-brand-navy" aria-labelledby="promise-h">
+    <section data-section="promise" className="section bg-brand-navy" aria-labelledby="promise-h">
       <div className="container-x max-w-4xl">
         <span
           className="block h-1.5 w-12 origin-left rounded bg-tsukure-yellow motion-safe:group-data-[reveal-state=visible]/reveal:animate-fade-in-up"
@@ -156,7 +156,7 @@ export function CvValue() {
     ['Tampil lebih meyakinkan', 'CV dibuat untuk menampilkan potensi terbaikmu sejak pertama kali dilihat.'],
   ];
   return (
-    <section className="section bg-[#f3f3f3]" aria-labelledby="value-h">
+    <section data-section="value" className="section bg-[#f3f3f3]" aria-labelledby="value-h">
       <div className="container-x max-w-6xl">
         <h2 id="value-h" style={{ animationDelay: '100ms' }} className="max-w-4xl font-display text-3xl font-extrabold leading-[1.05] tracking-[-0.04em] text-brand-navy motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal sm:text-5xl">Nggak Perlu Pusing Bikin CV. Kami Bantu Bikin Kamu Lebih Siap Melamar.</h2>
         <p style={{ animationDelay: '220ms' }} className="mt-5 max-w-4xl text-base leading-relaxed text-brand-ink/75 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade sm:text-lg">Dari isi sampai tampilannya, kami bantu bikin CV yang lebih rapi, profesional, dan mampu menampilkan potensi terbaikmu.</p>
@@ -181,7 +181,7 @@ export function CvValue() {
 
 export function CvPortfolioSection({ items }: { items: PortfolioView[] }) {
   return (
-    <section id="contoh-cv" className="section bg-brand-light" aria-labelledby="contoh-h">
+    <section id="contoh-cv" data-section="contoh-cv" className="section bg-brand-light" aria-labelledby="contoh-h">
       <div className="container-x">
         <h2 id="contoh-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Contoh CV yang Kami Buat</h2>
         <div className="mt-8">
@@ -200,7 +200,7 @@ export function CvPortfolioSection({ items }: { items: PortfolioView[] }) {
 
 export function CvBeforeAfter() {
   return (
-    <section className="section pb-0" aria-labelledby="ba-h">
+    <section data-section="before-after" className="section pb-0" aria-labelledby="ba-h">
       <div className="container-x grid items-end gap-10 lg:grid-cols-2">
         <div
           style={{ animationDelay: '100ms' }}
@@ -208,7 +208,7 @@ export function CvBeforeAfter() {
         >
           <Image
             src="/BRAND_AMBASSADOR2.png"
-            alt="Profesional wanita memegang CV"
+            alt=""
             width={1254}
             height={1254}
             sizes="(min-width: 1280px) 680px, (min-width: 1024px) 600px, 86vw"
@@ -243,7 +243,7 @@ export function CvBeforeAfter() {
 export function CvBenefits() {
   const support = ['Dibantu menyiapkan CV', 'Struktur lebih rapi', 'Tampilan profesional', 'Cocok untuk fresh graduate', 'Siap digunakan untuk melamar'];
   return (
-    <section className="section bg-[#f6f8fb]" aria-labelledby="benefit-h">
+    <section data-section="benefits" className="section bg-[#f6f8fb]" aria-labelledby="benefit-h">
       <div className="container-x">
         <h2 id="benefit-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Bukan Cuma Dibikinin CV.</h2>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
@@ -273,14 +273,20 @@ export function CvBenefits() {
   );
 }
 
-export function CvProcess() {
+export function CvProcess({
+  info = CV_INFO,
+  checklist = CV_DATA_CHECKLIST,
+}: {
+  info?: CvInfo;
+  checklist?: readonly string[];
+}) {
   const steps = [
     ['Kirimin Dokumen', ['Kirimin dokumen yang diperlukan untuk CV, seperti foto dan data diri, ke WhatsApp Admin.']],
     ['Terima Invoice Resmi', ['Admin akan membuat invoice resmi sebelum pembuatan draft pertama CV.', 'Setelah itu CV mulai dikerjakan. Kamu bisa mengajukan revisi sesuai kebutuhan sampai CV disetujui.']],
     ['CV Siap Digunakan', ['Jika CV sudah disetujui, file softfile dan file siap print akan dikirimkan untuk siap digunakan.']],
   ] as const;
   return (
-    <section className="section" aria-labelledby="proses-h">
+    <section data-section="process" className="section" aria-labelledby="proses-h">
       <div className="container-x">
         <h2 id="proses-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Pesan CV Tanpa Ribet.</h2>
         <ol className="mt-10 grid gap-6 md:grid-cols-3">
@@ -293,19 +299,27 @@ export function CvProcess() {
               <span className="grid h-11 w-11 place-items-center rounded-full bg-tsukure-yellow font-display text-lg font-extrabold text-brand-ink" aria-hidden>{i + 1}</span>
               <h3 className="mt-4 text-xl font-bold"><span className="sr-only">Langkah {i + 1}: </span>{t}</h3>
               {d.map((p) => <p key={p} className="mt-2 text-[15px] leading-relaxed text-brand-ink/75">{p}</p>)}
+              {i === 0 && checklist.length > 0 && (
+                <ul className="mt-3 list-disc space-y-1 pl-5 text-[15px] leading-relaxed text-brand-ink/75">
+                  {checklist.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+              )}
+              {i === 1 && info.turnaround && <p className="mt-2 text-[15px] leading-relaxed text-brand-ink/75">{info.turnaround}</p>}
             </li>
           ))}
         </ol>
+        <WaCta place="process" className="mt-8" />
       </div>
     </section>
   );
 }
 
-export function CvPricing() {
+export function CvPricing({ info = CV_INFO }: { info?: CvInfo }) {
   return (
     <ViewTracker
       event="pricing_view"
       id="harga"
+      dataSection="pricing"
       className="relative overflow-hidden bg-[#dceeff] pb-10 pt-10 sm:pt-12 lg:pt-14 xl:pb-0"
       hideSticky
     >
@@ -320,7 +334,7 @@ export function CvPricing() {
           Pilih Paket Sesuai Kebutuhanmu
         </h2>
 
-        <div className="mt-8 grid items-stretch gap-3 lg:grid-cols-3 xl:mt-10 xl:gap-2">
+        <div className="mx-auto mt-8 grid max-w-[1100px] items-stretch gap-4 lg:grid-cols-3 xl:mt-10 xl:gap-5">
           {CV_PACKAGES.map((plan, index) => {
             const isPhoto = plan.id === 'photo';
             const isCvOnly = plan.id === 'cv-only';
@@ -361,7 +375,7 @@ export function CvPricing() {
                 style={{ animationDelay: `${index * 140}ms` }}
               >
                 <article
-                  className={`relative z-10 mx-auto flex min-h-[470px] w-full max-w-[300px] flex-col rounded-[18px] px-5 pb-6 pt-7 shadow-soft transition-transform duration-300 ease-out hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none lg:max-w-none xl:mb-[42px] xl:min-h-[470px] ${tone.card}`}
+                  className={`relative z-10 mx-auto flex h-full min-h-[470px] w-full max-w-[300px] flex-col rounded-[18px] px-5 pb-6 pt-7 shadow-soft transition-transform duration-300 ease-out hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none lg:max-w-none xl:mb-[42px] xl:min-h-[470px] ${tone.card}`}
                 >
                   {/* Lingkaran kuning dekoratif (kartu Pas Foto & Bundle) */}
                   {isPhoto && (
@@ -399,6 +413,9 @@ export function CvPricing() {
                     'mt-6 text-[0.95rem] font-extrabold',
                     isBundle ? 'text-white' : 'text-brand-navy',
                   ].join(' ')}>Yang kamu dapat :</h4>
+                  {isBundle && info.bundleDetail && (
+                    <p className="mt-2 text-sm text-white/85">{info.bundleDetail}</p>
+                  )}
 
                   <ul className={[
                     'mt-3 space-y-2.5',
@@ -415,8 +432,8 @@ export function CvPricing() {
                           <Check className="!h-4 !w-4 text-current" />
                           <span className="block">
                             {feature}
-                            {isGuarantee && plan.id !== 'photo' && plan.guaranteeNote && (
-                              <span className={`mt-0.5 block text-[0.72rem] ${tone.note}`}>{plan.guaranteeNote}</span>
+                            {isGuarantee && plan.id !== 'photo' && plan.guaranteeNote && hasCvTerms() && (
+                              <a href={`#${CV_TERMS_ANCHOR}`} className={`mt-0.5 block text-[0.72rem] underline underline-offset-2 ${tone.note}`}>{plan.guaranteeNote}</a>
                             )}
                           </span>
                         </li>
@@ -427,6 +444,7 @@ export function CvPricing() {
                   <div className="mt-auto flex justify-center pt-7">
                     <WaCta
                       place={`pricing-${plan.id}`}
+                      pkg={plan.id}
                       className={`!w-auto !min-w-[140px] !rounded-full !border-2 !px-5 !py-2 !text-[0.9rem] !font-bold !shadow-none ${tone.btn}`}
                     >
                       Mau Paket Ini
@@ -443,37 +461,112 @@ export function CvPricing() {
   );
 }
 
-export function CvFaq() {
+export function CvFaq({
+  info = CV_INFO,
+  checklist = CV_DATA_CHECKLIST,
+}: {
+  info?: CvInfo;
+  checklist?: readonly string[];
+} = {}) {
   const items: Array<[string, string]> = [
     ['Apakah bisa request desain?', 'Kamu bisa sampaikan kebutuhan desain lewat WhatsApp. Admin akan memberi tahu apa yang bisa dikerjakan.'],
     ['Apakah bisa untuk fresh graduate?', 'Bisa. Layanan ini dibuat untuk fresh graduate dan job seeker, termasuk yang belum punya pengalaman kerja.'],
-    ['Apa saja data yang harus dikirim?', 'Dokumen yang diperlukan untuk CV, seperti foto dan data diri. Kamu kirim lewat WhatsApp Admin.'],
+    ['Bagaimana cara order dan apa saja data yang harus dikirim?', 'Dokumen yang diperlukan untuk CV, seperti foto dan data diri. Kamu kirim lewat WhatsApp Admin.'],
     ['Bagaimana proses revisi?', 'Setelah draft pertama jadi, kamu bisa mengajukan revisi sesuai kebutuhan sampai CV disetujui.'],
     ['Apakah ada invoice?', 'Ada. Admin membuat invoice resmi sebelum draft pertama CV dibuat.'],
-    ['Berapa harganya?', `Tersedia paket Edit Pas Foto ${formatRupiah(CV_PACKAGES[0].current)}, CV Only ${formatRupiah(CV_PACKAGES[1].current)}, dan Bundle ${formatRupiah(CV_PACKAGES[2].current)}.`],
     ['Bagaimana pembayaran?', 'Pembayaran mengikuti invoice resmi dari admin. Detail cara bayar diberikan admin lewat WhatsApp.'],
     ['File akhirnya apa saja?', 'Softfile dan file siap print.'],
     ['Apa itu file siap print?', 'File CV yang disiapkan supaya bisa langsung dicetak.'],
     ['Bagaimana garansi alamat kerja?', 'Revisi alamat kerja gratis selamanya. Garansi ini khusus untuk perubahan alamat kerja; untuk perubahan lain, tanyakan ke admin lewat WhatsApp.'],
-    ['Bagaimana cara order?', 'Klik “Buat CV Sekarang”, lalu kirim dokumen yang diperlukan ke WhatsApp Admin.'],
   ];
+  const faqItems = items.map(([question, answer], index) => {
+    if (question === 'Bagaimana cara order dan apa saja data yang harus dikirim?') {
+      return {
+        id: String(index),
+        question,
+        answer: (
+          <>
+            <p>{answer}</p>
+            {checklist.length > 0 && (
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                {checklist.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            )}
+            <p className="mt-2">Klik “Buat CV Sekarang”, lalu kirim dokumen yang diperlukan ke WhatsApp Admin.</p>
+          </>
+        ),
+      };
+    }
+    if (question === 'Bagaimana pembayaran?') {
+      const paymentDetails = [info.paymentMethods, info.paymentTiming].filter((detail): detail is string => detail !== null);
+      if (paymentDetails.length > 0) {
+        return {
+          id: String(index),
+          question,
+          answer: (
+            <>
+              <p>{answer}</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                {paymentDetails.map((detail) => <li key={detail}>{detail}</li>)}
+              </ul>
+            </>
+          ),
+        };
+      }
+    }
+    return { id: String(index), question, answer };
+  });
+  if (info.turnaround) faqItems.push({ id: String(faqItems.length), question: 'Berapa lama pengerjaannya?', answer: info.turnaround });
   return (
-    <section className="section" aria-labelledby="faq-h">
+    <section data-section="faq" className="section" aria-labelledby="faq-h">
       <div className="container-x max-w-3xl">
         <h2 id="faq-h" style={{ animationDelay: '100ms' }} className="h2 motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal">Pertanyaan yang Sering Muncul</h2>
-        <div style={{ animationDelay: '200ms' }} className="mt-8 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade"><FAQAccordion items={items.map(([question, answer], i) => ({ id: String(i), question, answer }))} /></div>
+        <div style={{ animationDelay: '200ms' }} className="mt-8 motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade"><FAQAccordion items={faqItems} /></div>
+        <WaCta place="faq" className="mt-8" />
       </div>
     </section>
   );
 }
 
-export function CvFooter() {
+export function CvTerms({ terms = CV_TERMS }: { terms?: readonly string[] }) {
+  if (!hasCvTerms(terms)) return null;
+
+  return (
+    <section id={CV_TERMS_ANCHOR} data-hide-sticky="" className="section bg-white pb-28 md:pb-0" aria-labelledby="syarat-h">
+      <div className="container-x max-w-3xl">
+        <h2 id="syarat-h" className="h2">Syarat &amp; Ketentuan</h2>
+        <ul className="mt-6 list-disc space-y-2 pl-6 text-brand-ink/75">
+          {terms.map((term, index) => <li key={index}>{term}</li>)}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+export function CvPrivacy({ privacy = CV_PRIVACY }: { privacy?: readonly string[] }) {
+  if (!hasCvPrivacy(privacy)) return null;
+
+  return (
+    <section id={CV_PRIVACY_ANCHOR} data-hide-sticky="" className="section bg-white pb-28 md:pb-0" aria-labelledby="privasi-h">
+      <div className="container-x max-w-3xl">
+        <h2 id="privasi-h" className="h2">Kebijakan Privasi</h2>
+        <ul className="mt-6 list-disc space-y-2 pl-6 text-brand-ink/75">
+          {privacy.map((item, index) => <li key={index}>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+export function CvFooter({ terms = CV_TERMS, privacy = CV_PRIVACY }: { terms?: readonly string[]; privacy?: readonly string[] } = {}) {
   return (
     <footer className="bg-brand-navy pb-24 text-white md:pb-0">
       <div className="container-x border-t border-white/10 py-8 text-sm">
         <p className="font-display text-lg font-extrabold">TSUKURE.ID</p>
         <p className="mt-2 max-w-sm text-white/70">Jasa pembuatan CV profesional untuk fresh graduate dan job seeker.</p>
         <p className="mt-4"><a href="#contoh-cv" className="text-white/80 underline underline-offset-4 hover:text-white">Contoh CV</a></p>
+        {hasCvTerms(terms) && <p className="mt-2"><a href={`#${CV_TERMS_ANCHOR}`} className="text-white/80 underline underline-offset-4 hover:text-white">Syarat &amp; Ketentuan</a></p>}
+        {hasCvPrivacy(privacy) && <p className="mt-2"><a href={`#${CV_PRIVACY_ANCHOR}`} className="text-white/80 underline underline-offset-4 hover:text-white">Kebijakan Privasi</a></p>}
         <p className="mt-6 text-xs text-white/50">© {new Date().getFullYear()} TSUKURE.ID</p>
       </div>
     </footer>

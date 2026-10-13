@@ -8,7 +8,43 @@ export const CV_WHATSAPP_MESSAGE = '(LP-CV) Hi Admin, Aku ingin bikin CV kerja n
 const encoded = encodeURIComponent(CV_WHATSAPP_MESSAGE).replace(/\(/g, '%28').replace(/\)/g, '%29');
 export const CV_WHATSAPP_URL = `https://wa.me/${CV_WHATSAPP_NUMBER}?text=${encoded}`;
 
-export const CV_PRICE = { current: 29000, original: 45000 } as const;
+export type CvPackageId = (typeof CV_PACKAGES)[number]['id'];
+
+export function buildCvWhatsappUrl(pkgId: CvPackageId): string {
+	const pkg = CV_PACKAGES.find((plan) => plan.id === pkgId);
+	if (!pkg) throw new Error(`Unknown CV package: ${pkgId}`);
+	const message = `${CV_WHATSAPP_MESSAGE} Aku pilih ${pkg.name}.`;
+	const packageMessage = encodeURIComponent(message).replace(/\(/g, '%28').replace(/\)/g, '%29');
+	return `https://wa.me/${CV_WHATSAPP_NUMBER}?text=${packageMessage}`;
+}
+
+export const CV_TERMS: readonly string[] = [];
+export const CV_TERMS_ANCHOR = 'syarat-ketentuan';
+export const hasCvTerms = (terms: readonly string[] = CV_TERMS) => terms.length > 0;
+export const CV_PRIVACY: readonly string[] = [];
+export const CV_PRIVACY_ANCHOR = 'privasi';
+export const hasCvPrivacy = (privacy: readonly string[] = CV_PRIVACY) => privacy.length > 0;
+export type CvInfo = {
+	turnaround: string | null;
+	paymentMethods: string | null;
+	paymentTiming: string | null;
+	bundleDetail: string | null;
+};
+export const CV_INFO: CvInfo = {
+	turnaround: null,
+	paymentMethods: null,
+	paymentTiming: null,
+	bundleDetail: null,
+};
+export const CV_DATA_CHECKLIST: readonly string[] = [
+	'Foto',
+	'Nama lengkap',
+	'Kontak (telepon/email)',
+	'Pendidikan',
+	'Pengalaman kerja/magang/organisasi (jika ada)',
+	'Skill',
+	'CV lama (jika ada)',
+];
 export const CV_PACKAGES = [
 	{
 		id: 'photo',
