@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: { default: 'Jasa Pembuatan CV Profesional & ATS untuk Fresh Graduate | TSUKURE.ID', template: '%s | TSUKURE.ID' },
   description: DEFAULT_DESC,
   alternates: { canonical: siteUrl('/') },
+  icons: { icon: { url: '/favicon.png', type: 'image/png' } },
 };
 export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#FFFFFF' };
 
