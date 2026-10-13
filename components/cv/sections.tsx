@@ -25,6 +25,7 @@ const TsukureLogo = ({ className = '' }: { className?: string }) => (
       height={412}
       sizes="(min-width: 1024px) 138px, 92px"
       className="h-8 w-auto object-contain sm:h-10 lg:h-12"
+      style={{ aspectRatio: '1177 / 412' }}
     />
   </div>
 );
@@ -229,6 +230,7 @@ export function CvBeforeAfter() {
                   height={2400}
                   sizes="(min-width: 640px) 24rem, 100vw"
                   className="h-auto w-full object-contain"
+                  style={{ aspectRatio: '1792 / 2400' }}
                 />
               }
             />
