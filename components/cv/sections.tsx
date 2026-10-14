@@ -214,6 +214,7 @@ export function CvBeforeAfter() {
             height={1254}
             sizes="(min-width: 1280px) 680px, (min-width: 1024px) 600px, 86vw"
             className="mx-auto block h-auto w-[86%] max-w-[430px] object-contain object-bottom lg:mx-0 lg:h-[600px] lg:w-[600px] lg:max-w-none xl:h-[680px] xl:w-[680px]"
+            style={{ aspectRatio: '1254 / 1254' }}
           />
         </div>
         <div>
@@ -317,146 +318,91 @@ export function CvProcess({
 }
 
 export function CvPricing({ info = CV_INFO }: { info?: CvInfo }) {
+  const bundle = CV_PACKAGES.find((plan) => plan.id === 'bundle');
+  if (!bundle) throw new Error('CV bundle package is missing');
+
   return (
     <ViewTracker
       event="pricing_view"
       id="harga"
       dataSection="pricing"
-      className="relative overflow-hidden bg-[#dceeff] pb-10 pt-10 sm:pt-12 lg:pt-14 xl:pb-0"
+      className="relative overflow-hidden bg-[#dceeff] py-14 sm:py-16 lg:py-20"
       hideSticky
     >
-      {/* Lingkaran putih kepotong di pojok kiri atas */}
-      <div
-        className="pointer-events-none absolute -left-[210px] -top-[215px] h-[400px] w-[400px] rounded-full bg-white"
-        aria-hidden
-      />
+      <div className="pointer-events-none absolute -left-[112px] -top-[112px] h-[240px] w-[240px] rounded-full bg-tsukure-yellow" aria-hidden />
+      <div className="pointer-events-none absolute -bottom-[96px] -right-[96px] h-[190px] w-[190px] rounded-full bg-white" aria-hidden />
 
-      <div className="container-x relative mx-auto max-w-[1500px]">
-        <h2 style={{ animationDelay: '100ms' }} className="text-center font-display text-[1.9rem] font-extrabold uppercase leading-[1.1] tracking-[-0.03em] text-brand-navy motion-safe:group-data-[reveal-state=visible]/reveal:animate-premium-reveal sm:text-[2.5rem] lg:text-[2.8rem] xl:whitespace-nowrap xl:text-[3.2rem]">
-          Pilih Paket Sesuai Kebutuhanmu
-        </h2>
+      <div className="container-x relative mx-auto max-w-[1290px]">
+        <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-[1fr_330px] lg:gap-14 lg:pl-[100px]">
+          <div className="relative z-10 max-w-[560px]">
+            <h2 className="font-display text-[2.4rem] font-extrabold leading-[1.08] tracking-[-0.04em] text-brand-navy sm:text-[3.2rem] lg:text-[4.5rem]">
+              Siap Lamar Kerja
+              <br />
+              Hari Ini?
+            </h2>
+            <p className="mt-5 max-w-[410px] text-lg leading-relaxed text-brand-navy sm:text-xl lg:text-[1.4rem]">
+              Dapatkan Promo Harga untuk Semua Persiapan Lamaran Kerjamu
+            </p>
+          </div>
 
-        <div className="mx-auto mt-8 grid max-w-[1100px] items-stretch gap-4 lg:grid-cols-3 xl:mt-10 xl:gap-5">
-          {CV_PACKAGES.map((plan, index) => {
-            const isPhoto = plan.id === 'photo';
-            const isCvOnly = plan.id === 'cv-only';
-            const isBundle = plan.id === 'bundle';
+          <ScrollReveal
+            className="relative z-10 mx-auto w-full max-w-[330px] lg:max-w-none"
+            animation="premium-reveal"
+          >
+            <article className="relative min-h-[560px] rounded-[14px] bg-[#0d2d4f] px-7 pb-7 pt-6 text-white shadow-[0_20px_45px_rgba(13,45,79,0.2)] sm:min-h-[600px] sm:px-8">
+              <span className="pointer-events-none absolute -left-11 -top-5 h-[90px] w-[90px] rounded-full bg-tsukure-yellow" aria-hidden />
 
-            const tone = isBundle
-              ? {
-                  card: 'bg-[#0d2d4f] text-white',
-                  strike: 'text-white/65',
-                  note: 'text-white/70',
-                  btn: '!border-tsukure-yellow !bg-tsukure-yellow !text-brand-navy',
-                }
-              : isCvOnly
-                ? {
-                    card: 'bg-tsukure-yellow text-brand-navy',
-                    strike: 'text-brand-navy/55',
-                    note: 'text-brand-navy/70',
-                    btn: '!border-brand-navy !bg-transparent !text-brand-navy',
-                  }
-                : {
-                    card: 'bg-white text-[#111111]',
-                    strike: 'text-[#111111]/55',
-                    note: 'text-[#111111]/60',
-                    btn: '!border-[#111111] !bg-white !text-[#111111]',
-                  };
+              <div className="relative z-10 flex min-h-[510px] flex-col sm:min-h-[550px]">
+              <h3 className="ml-1 font-display text-[2.2rem] font-extrabold uppercase leading-[1.02] tracking-[-0.03em] text-white sm:text-[2.5rem]">
+                <span className="block">PROMO</span>
+                <span className="mt-1 block">PAKET</span>
+                <span className="flex items-center gap-2 text-[3rem] leading-none sm:text-[3.25rem]">
+                  LENGKAP
+                  <span aria-hidden className="text-[1.45rem]">👍</span>
+                </span>
+              </h3>
 
-            const [line1, line2] = isPhoto
-              ? ['EDIT', 'PAS FOTO']
-              : isCvOnly
-                ? ['PAKET', 'CV ONLY']
-                : ['PAKET', 'BUNDLE'];
+              <div className="mt-6">
+                <p className="text-left text-[1.1rem] leading-none text-white/65 line-through">
+                  Rp{bundle.original.toLocaleString('id-ID')}
+                </p>
+                <p className="mt-1.5 text-left font-display text-[3.5rem] font-extrabold leading-none tracking-[-0.04em] text-tsukure-yellow sm:text-[4rem]">
+                  Rp{bundle.current.toLocaleString('id-ID')}
+                </p>
+              </div>
 
-            return (
-              <ScrollReveal
-                key={plan.id}
-                className="h-full"
-                animation="premium-reveal"
-                style={{ animationDelay: `${index * 140}ms` }}
-              >
-                <article
-                  className={`relative z-10 mx-auto flex h-full min-h-[470px] w-full max-w-[300px] flex-col rounded-[18px] px-5 pb-6 pt-7 shadow-soft transition-transform duration-300 ease-out hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none lg:max-w-none xl:mb-[42px] xl:min-h-[470px] ${tone.card}`}
+              <div className="mt-6 flex-1">
+                <p className="text-lg font-bold">Yang kamu dapat :</p>
+                {info.bundleDetail && (
+                  <p className="mt-2 text-sm leading-snug text-white/85">{info.bundleDetail}</p>
+                )}
+                <ul className="mt-3 space-y-2">
+                  {bundle.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2 text-lg leading-snug">
+                      <Check className="!mt-0.5 !h-4 !w-4 text-current" />
+                      <span>
+                        {feature}
+                        {feature.startsWith('*Garansi') && bundle.guaranteeNote && hasCvTerms() && (
+                          <a href={`#${CV_TERMS_ANCHOR}`} className="ml-1 underline underline-offset-2">{bundle.guaranteeNote}</a>
+                        )}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-6 flex justify-center">
+                <WaCta
+                  place="pricing-bundle"
+                  pkg={bundle.id}
+                  className="!min-h-[60px] !w-auto !min-w-[190px] !rounded-full !bg-tsukure-yellow !px-5 !py-2 !text-lg !font-bold !text-brand-navy !shadow-none hover:!bg-white hover:!text-brand-navy"
                 >
-                  {/* Lingkaran kuning dekoratif (kartu Pas Foto & Bundle) */}
-                  {isPhoto && (
-                    <span className="pointer-events-none absolute -left-9 top-12 z-0 h-[94px] w-[94px] rounded-full bg-tsukure-yellow" aria-hidden />
-                  )}
-                  {isBundle && (
-                    <span className="pointer-events-none absolute -left-4 -top-4 z-0 h-[88px] w-[88px] rounded-full bg-tsukure-yellow" aria-hidden />
-                  )}
-
-                  <div className="relative z-10 flex flex-1 flex-col">
-                  <h3 className={[
-                    'font-display font-extrabold uppercase leading-[1.05] tracking-[-0.03em]',
-                    isBundle ? 'ml-12 text-[1.4rem] sm:text-[1.6rem]' : 'text-[1.6rem]',
-                  ].join(' ')}>
-                    <span className={isBundle ? 'block text-white' : 'block'}>{line1}</span>
-                    <span className={isBundle ? 'flex items-center gap-2 text-[2.1rem] leading-none text-white sm:text-[2.5rem]' : 'flex items-center gap-2 text-[2.1rem] leading-none sm:text-[2.5rem]'}>
-                      {line2}
-                      {isBundle && <span className="text-[1.5rem] leading-none text-white" aria-hidden>👍</span>}
-                    </span>
-                  </h3>
-
-                  <p className={`mt-5 text-center text-[1.4rem] font-medium leading-none line-through decoration-2 ${tone.strike}`}>
-                    <span className="sr-only">Harga normal </span>
-                    {formatRupiah(plan.original)}
-                  </p>
-                  <p className={[
-                    'mt-1 text-center font-display font-extrabold leading-[1.1] tracking-[-0.04em]',
-                    isBundle ? 'text-[2.7rem] sm:text-[3.1rem]' : 'text-[2.9rem] sm:text-[3.3rem]',
-                  ].join(' ')}>
-                    <span className="sr-only">Harga sekarang </span>
-                    {formatRupiah(plan.current)}
-                  </p>
-
-                  <h4 className={[
-                    'mt-6 text-[0.95rem] font-extrabold',
-                    isBundle ? 'text-white' : 'text-brand-navy',
-                  ].join(' ')}>Yang kamu dapat :</h4>
-                  {isBundle && info.bundleDetail && (
-                    <p className="mt-2 text-sm text-white/85">{info.bundleDetail}</p>
-                  )}
-
-                  <ul className={[
-                    'mt-3 space-y-2.5',
-                    isBundle ? 'text-white' : 'text-brand-navy',
-                  ].join(' ')}>
-                    {plan.features.map((feature, index) => {
-                      const isGuarantee = feature.startsWith('*Garansi');
-                      return (
-                        <li
-                          key={feature}
-                          style={{ animationDelay: `${index * 70}ms` }}
-                          className="flex gap-2 text-[0.92rem] leading-snug motion-safe:group-data-[reveal-state=visible]/reveal:animate-stagger-fade sm:text-[0.98rem]"
-                        >
-                          <Check className="!h-4 !w-4 text-current" />
-                          <span className="block">
-                            {feature}
-                            {isGuarantee && plan.id !== 'photo' && plan.guaranteeNote && hasCvTerms() && (
-                              <a href={`#${CV_TERMS_ANCHOR}`} className={`mt-0.5 block text-[0.72rem] underline underline-offset-2 ${tone.note}`}>{plan.guaranteeNote}</a>
-                            )}
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-
-                  <div className="mt-auto flex justify-center pt-7">
-                    <WaCta
-                      place={`pricing-${plan.id}`}
-                      pkg={plan.id}
-                      className={`!w-auto !min-w-[140px] !rounded-full !border-2 !px-5 !py-2 !text-[0.9rem] !font-bold !shadow-none ${tone.btn}`}
-                    >
-                      Mau Paket Ini
-                    </WaCta>
-                  </div>
-                  </div>
-                </article>
-              </ScrollReveal>
-            );
-          })}
+                  Mau Ambil Promonya
+                </WaCta>
+              </div>
+              </div>
+            </article>
+          </ScrollReveal>
         </div>
       </div>
     </ViewTracker>
